@@ -9,6 +9,7 @@ package controlador;
  * @author Criiiis
  */
 public class Usuarios {
+    private int id;
     private String nombre;
     private String apellido;
     private String rut;
@@ -85,10 +86,25 @@ public class Usuarios {
     public void setRol(String rol) {
         this.rol = rol;
     }
+
+    @Override
+    public String toString() {
+        return "Usuarios{" + "nombre=" + nombre + ", apellido=" + apellido + ", rut=" + rut + ", direccion=" + direccion + ", telefono=" + telefono + ", correo=" + correo + ", rol=" + rol + '}';
+    }
     
     
     
-    
+    public class Medico extends Usuarios {
+    // Atributos y métodos específicos para médicos
+    }
+
+    public class Secretaria extends Usuarios {
+    // Atributos y métodos específicos para secretarias
+    }
+
+    public class Paciente extends Usuarios {
+    // Atributos y métodos específicos para pacientes
+    }
     
     
 }//fin clase
