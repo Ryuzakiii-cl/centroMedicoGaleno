@@ -1,11 +1,12 @@
 
 package modelo;
-
+import controlador.Usuarios;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import javax.swing.JOptionPane;
 import vista.MedicoView;
 import vista.PacienteView;
@@ -84,7 +85,19 @@ public class BD {
  
  
  
- 
+    public boolean agregar(Usuarios usuarios ){
+        try {
+        String SQL = "INSERT INTO usuarios(nombre,apellido,rut,direccion,telefono,correo,rol)values('"+usuarios.getNombre()+"','"+usuarios.getApellido()+"','"+usuarios.getRut()+"','"+usuarios.getDireccion()+"','"+usuarios.getTelefono()+"','"+usuarios.getCorreo()+"','"+usuarios.getRol()+"')";
+        Statement s = conexion.createStatement();
+        s.executeUpdate( SQL );
+        s.close();
+            
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+            return false;
+        }
+        return true;
+    }  //fin metodo agregar
  
  
 

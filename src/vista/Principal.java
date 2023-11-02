@@ -4,9 +4,12 @@
  */
 package vista;
 
-import java.awt.Dimension;
-import java.awt.Toolkit;
-import javax.swing.JFrame;
+import modelo.BD;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import javax.swing.JOptionPane;
+
+
 
 /**
  *
@@ -21,11 +24,7 @@ public class Principal extends javax.swing.JFrame {
         String subr = "<html><u>Registrarse</u></html>";
         jlabel_registrar.setText(subr);
         this.setResizable(false);
-;
         setLocationRelativeTo(null);
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        setVisible(true);
-
     }
 
     /**
@@ -39,8 +38,8 @@ public class Principal extends javax.swing.JFrame {
 
         jPanel1 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
-        jButton1 = new javax.swing.JButton();
-        jTextField1 = new javax.swing.JTextField();
+        btn_sesion = new javax.swing.JButton();
+        txt_user = new javax.swing.JTextField();
         jLabel2 = new javax.swing.JLabel();
         jlabel_registrar = new javax.swing.JLabel();
         txt_pass = new javax.swing.JPasswordField();
@@ -62,12 +61,17 @@ public class Principal extends javax.swing.JFrame {
         jLabel1.setForeground(new java.awt.Color(0, 0, 0));
         jLabel1.setText("Rut");
 
-        jButton1.setForeground(new java.awt.Color(0, 0, 0));
-        jButton1.setText("Iniciar Sesion");
-
-        jTextField1.addActionListener(new java.awt.event.ActionListener() {
+        btn_sesion.setForeground(new java.awt.Color(0, 0, 0));
+        btn_sesion.setText("Iniciar Sesion");
+        btn_sesion.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField1ActionPerformed(evt);
+                btn_sesionActionPerformed(evt);
+            }
+        });
+
+        txt_user.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txt_userActionPerformed(evt);
             }
         });
 
@@ -167,7 +171,7 @@ public class Principal extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 150, Short.MAX_VALUE)
                         .addComponent(jLabel1)
                         .addGap(18, 18, 18)
-                        .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 148, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(txt_user, javax.swing.GroupLayout.PREFERRED_SIZE, 148, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
                         .addComponent(jLabel2)
                         .addGap(18, 18, 18)
@@ -175,7 +179,7 @@ public class Principal extends javax.swing.JFrame {
                         .addGap(18, 18, 18)
                         .addComponent(cbox_showpass)
                         .addGap(18, 18, 18)
-                        .addComponent(jButton1)
+                        .addComponent(btn_sesion)
                         .addGap(18, 18, 18)
                         .addComponent(jlabel_registrar, javax.swing.GroupLayout.PREFERRED_SIZE, 78, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap())
@@ -186,14 +190,15 @@ public class Principal extends javax.swing.JFrame {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addContainerGap()
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jButton1)
-                            .addComponent(jlabel_registrar)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(cbox_showpass)
-                            .addComponent(jLabel1)
-                            .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel2)
-                            .addComponent(txt_pass, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                .addComponent(btn_sesion)
+                                .addComponent(jlabel_registrar)
+                                .addComponent(jLabel1)
+                                .addComponent(txt_user, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(jLabel2)
+                                .addComponent(txt_pass, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
                     .addComponent(jLabel8, javax.swing.GroupLayout.DEFAULT_SIZE, 77, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 39, Short.MAX_VALUE)
                 .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -228,9 +233,9 @@ public class Principal extends javax.swing.JFrame {
         r.setVisible(true);
     }//GEN-LAST:event_jlabel_registrarMouseClicked
 
-    private void jTextField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField1ActionPerformed
+    private void txt_userActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txt_userActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jTextField1ActionPerformed
+    }//GEN-LAST:event_txt_userActionPerformed
 
     private void txt_passActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txt_passActionPerformed
         // TODO add your handling code here:
@@ -245,6 +250,30 @@ public class Principal extends javax.swing.JFrame {
             txt_pass.setEchoChar('*');
         }
     }//GEN-LAST:event_cbox_showpassActionPerformed
+
+    private void btn_sesionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_sesionActionPerformed
+        // TODO add your handling code here:
+        BD bd = new BD();
+        
+        PreparedStatement ps = null;
+        ResultSet re = null;
+        String user = txt_user.getText();
+        String pass = txt_pass.getText();
+        
+        if (user.equals("") || pass.equals("")) {
+            JOptionPane.showMessageDialog(null, "Ingrese rut y/o contraseña");
+            
+        } else {
+            try {
+                bd.conectar();
+                bd.iniciarSesion(user, pass);
+                this.dispose();
+            } catch (Exception e) {
+            }
+        }
+        
+        
+    }//GEN-LAST:event_btn_sesionActionPerformed
 
     /**
      * @param args the command line arguments
@@ -282,8 +311,8 @@ public class Principal extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btn_sesion;
     private javax.swing.JCheckBox cbox_showpass;
-    private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
@@ -293,8 +322,8 @@ public class Principal extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JPanel jPanel1;
-    private javax.swing.JTextField jTextField1;
     private javax.swing.JLabel jlabel_registrar;
     private javax.swing.JPasswordField txt_pass;
+    private javax.swing.JTextField txt_user;
     // End of variables declaration//GEN-END:variables
 }

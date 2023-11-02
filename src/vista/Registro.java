@@ -4,9 +4,12 @@
  */
 package vista;
 
-import java.awt.Dimension;
-import java.awt.Toolkit;
+import controlador.Usuarios;
+import java.util.HashSet;
+import modelo.BD;
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
+import modelo.BD;
 
 /**
  *
@@ -348,6 +351,61 @@ public class Registro extends javax.swing.JFrame {
 
     private void btn_registroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_registroActionPerformed
         // TODO add your handling code here:
+        BD bd = new BD();
+        Usuarios u = new Usuarios();
+        
+        String nombre = txt_name.getText();
+        String apellido = txt_lname.getText();
+        String rut = txt_rutt.getText();
+        String direccion = txt_adress.getText();
+        String telefono = txt_fono.getText();
+        String correo = txt_correo.getText();
+        String rol = "paciente";
+        
+        
+        
+        //validacion
+        if (nombre.isEmpty() ||
+            apellido.isEmpty() || 
+            rut.isEmpty() || 
+            direccion.isEmpty() || 
+            telefono.isEmpty() || 
+            correo.isEmpty() ) {
+            JOptionPane.showMessageDialog(null, "Complete todos los campos");
+            
+        } else {
+            try {
+                u.setNombre(nombre);
+                u.setApellido(apellido);
+                u.setRut(rut);
+                u.setDireccion(direccion);
+                u.setTelefono(telefono);
+                u.setCorreo(correo);
+                u.setRol(rol);
+                bd.conectar();
+                bd.agregar(u);
+                
+                
+                txt_name.setText("");
+                txt_lname.setText("");
+                txt_rutt.setText("");
+                txt_adress.setText("");
+                txt_fono.setText("");
+                txt_correo.setText("");
+                
+                JOptionPane.showMessageDialog(null, "Datos Ingresados Correctamente");
+            } catch (Exception e) {
+                JOptionPane.showMessageDialog(null, "No se pudo crear usuario"+ e);
+            }
+        }
+        
+        
+
+        
+        
+        
+        
+        
     }//GEN-LAST:event_btn_registroActionPerformed
 
     private void btn_atrasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_atrasActionPerformed
