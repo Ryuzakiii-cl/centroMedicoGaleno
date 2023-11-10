@@ -4,6 +4,12 @@
  */
 package vista;
 
+import controlador.Agenda;
+import javax.swing.JOptionPane;
+import modelo.BD;
+
+import java.util.List;
+
 /**
  *
  * @author Criiiis
@@ -15,6 +21,7 @@ public class SecretariaView extends javax.swing.JFrame {
      */
     public SecretariaView() {
         initComponents();
+        this.setLocationRelativeTo(null);
     }
 
     /**
@@ -28,26 +35,97 @@ public class SecretariaView extends javax.swing.JFrame {
 
         jPanel1 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
+        jLabel2 = new javax.swing.JLabel();
+        txt_fechaAgenda = new javax.swing.JTextField();
+        jLabel3 = new javax.swing.JLabel();
+        jLabel4 = new javax.swing.JLabel();
+        jLabel5 = new javax.swing.JLabel();
+        btn_agendar = new javax.swing.JButton();
+        cbox_especialidad = new javax.swing.JComboBox<>();
+        cbox_medico = new javax.swing.JComboBox<>();
+        txt_status = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         jLabel1.setText("Secretaria");
+
+        jLabel2.setText("Especialidad");
+
+        jLabel3.setText("Medico");
+
+        jLabel4.setText("status");
+
+        jLabel5.setText("fecha");
+
+        btn_agendar.setText("Agendar");
+        btn_agendar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_agendarActionPerformed(evt);
+            }
+        });
+
+        cbox_especialidad.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Selecciono una especialidad", "Kinesiologo", "Traumatologo", "General", "carnicero" }));
+        cbox_especialidad.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cbox_especialidadActionPerformed(evt);
+            }
+        });
+
+        cbox_medico.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cbox_medicoActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(87, 87, 87)
-                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 227, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(86, Short.MAX_VALUE))
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(93, 93, 93)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jLabel2)
+                            .addComponent(jLabel3)
+                            .addComponent(jLabel4)
+                            .addComponent(jLabel5))
+                        .addGap(82, 82, 82)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(txt_fechaAgenda, javax.swing.GroupLayout.DEFAULT_SIZE, 200, Short.MAX_VALUE)
+                            .addComponent(btn_agendar)
+                            .addComponent(cbox_especialidad, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(cbox_medico, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(txt_status))))
+                .addContainerGap(96, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(104, 104, 104)
-                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 72, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(124, Short.MAX_VALUE))
+                .addContainerGap()
+                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 66, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel2)
+                    .addComponent(cbox_especialidad, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel3)
+                    .addComponent(cbox_medico, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(12, 12, 12)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel4)
+                    .addComponent(txt_status, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(15, 15, 15)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(txt_fechaAgenda, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel5))
+                .addGap(29, 29, 29)
+                .addComponent(btn_agendar)
+                .addContainerGap(43, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -63,6 +141,72 @@ public class SecretariaView extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void btn_agendarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_agendarActionPerformed
+        BD bd = new BD();
+        Agenda a = new Agenda();
+        
+        String nombreMed = cbox_medico.getSelectedItem().toString();
+        String especialidad = cbox_especialidad.getSelectedItem().toString();
+        String status = txt_status.getText();
+        String fecha = txt_fechaAgenda.getText();
+        
+        try {
+            a.setNombreMed(nombreMed);
+            a.setEspecialidad(especialidad);
+            a.setStatus(status);
+            a.setFecha(fecha);
+            bd.agendaMedica();
+            bd.agendar(a);
+            
+            cbox_medico.setSelectedIndex(WIDTH);
+            cbox_especialidad.setSelectedIndex(WIDTH);
+            txt_status.setText("");
+            txt_fechaAgenda.setText("");
+
+
+            JOptionPane.showMessageDialog(null, "Agenda Reservada exitosamente");
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "no se pudo crear usuario");
+            System.out.println(e);
+        }
+           
+        
+    }//GEN-LAST:event_btn_agendarActionPerformed
+
+    private void cbox_medicoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbox_medicoActionPerformed
+        // TODO add your handling code here:
+        
+        
+        
+    }//GEN-LAST:event_cbox_medicoActionPerformed
+
+    private void cbox_especialidadActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbox_especialidadActionPerformed
+        // TODO add your handling code here:
+        
+   String especialidadSeleccionada = (String) cbox_especialidad.getSelectedItem();
+        //cree la conexion    
+        BD bd = new BD();
+        try {
+            // Conectar a la base de datos
+            bd.agendaMedica();
+
+            // Obtener los nombres de los médicos para la especialidad seleccionada
+            List<String> nombresMedicos = bd.obtenerMedicos(especialidadSeleccionada);
+
+            // Limpiar el combo box de médicos antes de cargar nuevos datos
+            cbox_medico.removeAllItems();
+
+            // Agregar los nombres de los médicos al combo box
+            for (String nombreMedico : nombresMedicos) {
+                cbox_medico.addItem(nombreMedico);
+            }
+        } catch (Exception ex) {
+            ex.printStackTrace();  // Imprime la excepción, puedes manejarla de otra manera si lo prefieres
+        }
+    
+        
+    }//GEN-LAST:event_cbox_especialidadActionPerformed
 
     /**
      * @param args the command line arguments
@@ -100,7 +244,16 @@ public class SecretariaView extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btn_agendar;
+    private javax.swing.JComboBox<String> cbox_especialidad;
+    private javax.swing.JComboBox<String> cbox_medico;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
     private javax.swing.JPanel jPanel1;
+    private javax.swing.JTextField txt_fechaAgenda;
+    private javax.swing.JTextField txt_status;
     // End of variables declaration//GEN-END:variables
 }

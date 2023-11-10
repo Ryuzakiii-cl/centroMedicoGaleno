@@ -267,7 +267,7 @@ public class Principal extends javax.swing.JFrame {
             try {
                 bd.conectar();
                 bd.iniciarSesion(user, pass);
-                this.dispose();
+                this.setVisible(false);
             } catch (Exception e) {
             }
         }
