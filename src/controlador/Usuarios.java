@@ -17,11 +17,13 @@ public class Usuarios {
     private String telefono;
     private String correo;
     private String rol;
+    private String especialidad;
 
     public Usuarios() {
     }
 
-    public Usuarios(String nombre, String apellido, String rut, String direccion, String telefono, String correo, String rol) {
+    public Usuarios(int id, String nombre, String apellido, String rut, String direccion, String telefono, String correo, String rol, String especialidad) {
+        this.id = id;
         this.nombre = nombre;
         this.apellido = apellido;
         this.rut = rut;
@@ -29,6 +31,15 @@ public class Usuarios {
         this.telefono = telefono;
         this.correo = correo;
         this.rol = rol;
+        this.especialidad = especialidad;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 
     public String getNombre() {
@@ -87,10 +98,20 @@ public class Usuarios {
         this.rol = rol;
     }
 
+    public String getEspecialidad() {
+        return especialidad;
+    }
+
+    public void setEspecialidad(String especialidad) {
+        this.especialidad = especialidad;
+    }
+
     @Override
     public String toString() {
-        return "Usuarios{" + "nombre=" + nombre + ", apellido=" + apellido + ", rut=" + rut + ", direccion=" + direccion + ", telefono=" + telefono + ", correo=" + correo + ", rol=" + rol + '}';
+        return "Usuarios{" + "id=" + id + ", nombre=" + nombre + ", apellido=" + apellido + ", rut=" + rut + ", direccion=" + direccion + ", telefono=" + telefono + ", correo=" + correo + ", rol=" + rol + ", especialidad=" + especialidad + '}';
     }
+
+   
     
     
     

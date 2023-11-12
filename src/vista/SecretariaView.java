@@ -21,6 +21,7 @@ public class SecretariaView extends javax.swing.JFrame {
      */
     public SecretariaView() {
         initComponents();
+                this.setExtendedState(this.MAXIMIZED_BOTH);
         this.setLocationRelativeTo(null);
     }
 
@@ -35,178 +36,84 @@ public class SecretariaView extends javax.swing.JFrame {
 
         jPanel1 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
-        jLabel2 = new javax.swing.JLabel();
-        txt_fechaAgenda = new javax.swing.JTextField();
-        jLabel3 = new javax.swing.JLabel();
-        jLabel4 = new javax.swing.JLabel();
-        jLabel5 = new javax.swing.JLabel();
-        btn_agendar = new javax.swing.JButton();
-        cbox_especialidad = new javax.swing.JComboBox<>();
-        cbox_medico = new javax.swing.JComboBox<>();
-        txt_status = new javax.swing.JTextField();
+        jLayeredPane1 = new javax.swing.JLayeredPane();
+        jButton1 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        jLabel1.setText("Secretaria");
+        jPanel1.setBackground(new java.awt.Color(102, 255, 255));
+        jPanel1.setPreferredSize(new java.awt.Dimension(1424, 787));
 
-        jLabel2.setText("Especialidad");
+        jLabel1.setText("BIENVENIDO");
 
-        jLabel3.setText("Medico");
+        jLayeredPane1.setBackground(new java.awt.Color(0, 153, 255));
+        jLayeredPane1.setOpaque(true);
 
-        jLabel4.setText("status");
-
-        jLabel5.setText("fecha");
-
-        btn_agendar.setText("Agendar");
-        btn_agendar.addActionListener(new java.awt.event.ActionListener() {
+        jButton1.setText("Reservar Hora");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btn_agendarActionPerformed(evt);
+                jButton1ActionPerformed(evt);
             }
         });
 
-        cbox_especialidad.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Selecciono una especialidad", "Kinesiologo", "Traumatologo", "General", "carnicero" }));
-        cbox_especialidad.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                cbox_especialidadActionPerformed(evt);
-            }
-        });
+        jLayeredPane1.setLayer(jButton1, javax.swing.JLayeredPane.DEFAULT_LAYER);
 
-        cbox_medico.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                cbox_medicoActionPerformed(evt);
-            }
-        });
+        javax.swing.GroupLayout jLayeredPane1Layout = new javax.swing.GroupLayout(jLayeredPane1);
+        jLayeredPane1.setLayout(jLayeredPane1Layout);
+        jLayeredPane1Layout.setHorizontalGroup(
+            jLayeredPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jLayeredPane1Layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jButton1)
+                .addGap(125, 125, 125))
+        );
+        jLayeredPane1Layout.setVerticalGroup(
+            jLayeredPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jLayeredPane1Layout.createSequentialGroup()
+                .addGap(17, 17, 17)
+                .addComponent(jButton1)
+                .addContainerGap(20, Short.MAX_VALUE))
+        );
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(93, 93, 93)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(jLabel2)
-                            .addComponent(jLabel3)
-                            .addComponent(jLabel4)
-                            .addComponent(jLabel5))
-                        .addGap(82, 82, 82)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(txt_fechaAgenda, javax.swing.GroupLayout.DEFAULT_SIZE, 200, Short.MAX_VALUE)
-                            .addComponent(btn_agendar)
-                            .addComponent(cbox_especialidad, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(cbox_medico, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(txt_status))))
-                .addContainerGap(96, Short.MAX_VALUE))
+            .addComponent(jLayeredPane1)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                .addContainerGap(921, Short.MAX_VALUE)
+                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 225, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(284, 284, 284))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 66, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel2)
-                    .addComponent(cbox_especialidad, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel3)
-                    .addComponent(cbox_medico, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(12, 12, 12)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel4)
-                    .addComponent(txt_status, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(15, 15, 15)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(txt_fechaAgenda, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel5))
-                .addGap(29, 29, 29)
-                .addComponent(btn_agendar)
-                .addContainerGap(43, Short.MAX_VALUE))
+                .addGap(69, 69, 69)
+                .addComponent(jLayeredPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(609, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(jPanel1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 1430, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 810, Short.MAX_VALUE)
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void btn_agendarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_agendarActionPerformed
-        BD bd = new BD();
-        Agenda a = new Agenda();
-        
-        String nombreMed = cbox_medico.getSelectedItem().toString();
-        String especialidad = cbox_especialidad.getSelectedItem().toString();
-        String status = txt_status.getText();
-        String fecha = txt_fechaAgenda.getText();
-        
-        try {
-            a.setNombreMed(nombreMed);
-            a.setEspecialidad(especialidad);
-            a.setStatus(status);
-            a.setFecha(fecha);
-            bd.agendaMedica();
-            bd.agendar(a);
-            
-            cbox_medico.setSelectedIndex(WIDTH);
-            cbox_especialidad.setSelectedIndex(WIDTH);
-            txt_status.setText("");
-            txt_fechaAgenda.setText("");
-
-
-            JOptionPane.showMessageDialog(null, "Agenda Reservada exitosamente");
-        } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, "no se pudo crear usuario");
-            System.out.println(e);
-        }
-           
-        
-    }//GEN-LAST:event_btn_agendarActionPerformed
-
-    private void cbox_medicoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbox_medicoActionPerformed
-        // TODO add your handling code here:
-        
-        
-        
-    }//GEN-LAST:event_cbox_medicoActionPerformed
-
-    private void cbox_especialidadActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbox_especialidadActionPerformed
-        // TODO add your handling code here:
-        
-   String especialidadSeleccionada = (String) cbox_especialidad.getSelectedItem();
-        //cree la conexion    
-        BD bd = new BD();
-        try {
-            // Conectar a la base de datos
-            bd.agendaMedica();
-
-            // Obtener los nombres de los médicos para la especialidad seleccionada
-            List<String> nombresMedicos = bd.obtenerMedicos(especialidadSeleccionada);
-
-            // Limpiar el combo box de médicos antes de cargar nuevos datos
-            cbox_medico.removeAllItems();
-
-            // Agregar los nombres de los médicos al combo box
-            for (String nombreMedico : nombresMedicos) {
-                cbox_medico.addItem(nombreMedico);
-            }
-        } catch (Exception ex) {
-            ex.printStackTrace();  // Imprime la excepción, puedes manejarla de otra manera si lo prefieres
-        }
-    
-        
-    }//GEN-LAST:event_cbox_especialidadActionPerformed
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        AgendaHoraSec a = new AgendaHoraSec();
+        this.setVisible(false);
+        a.setVisible(true);
+    }//GEN-LAST:event_jButton1ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -244,16 +151,9 @@ public class SecretariaView extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btn_agendar;
-    private javax.swing.JComboBox<String> cbox_especialidad;
-    private javax.swing.JComboBox<String> cbox_medico;
+    private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel3;
-    private javax.swing.JLabel jLabel4;
-    private javax.swing.JLabel jLabel5;
+    private javax.swing.JLayeredPane jLayeredPane1;
     private javax.swing.JPanel jPanel1;
-    private javax.swing.JTextField txt_fechaAgenda;
-    private javax.swing.JTextField txt_status;
     // End of variables declaration//GEN-END:variables
 }

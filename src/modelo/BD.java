@@ -95,18 +95,18 @@ import java.util.ArrayList;
 
            // Redirigir según el rol
            switch (rol) {
-               case "paciente":
+               case "Paciente":
                    // Abrir pantalla de vista para el Decano
                    PacienteView p = new PacienteView();
                    p.setVisible(true);
 
                    break;
-               case "medico":
+               case "Medico":
                    // Abrir pantalla de vista para el Profesor
                    MedicoView m = new MedicoView();
                    m.setVisible(true);
                    break;
-               case "secretaria":
+               case "Secretaria":
                    // Abrir pantalla de vista para el Alumno
                    SecretariaView s = new SecretariaView();
                    s.setVisible(true);
@@ -140,24 +140,26 @@ import java.util.ArrayList;
  
  
 public List<String> obtenerMedicos(String especialidad) {
-    List<String> nombresMedicos = new ArrayList<>();
+    List<String> nombresCompletosMedicos = new ArrayList<>();
 
     try {
-        PreparedStatement preparedStatement = conexion.prepareStatement("SELECT nombreMed FROM agenda_medica WHERE especialidad = ?");
+        PreparedStatement preparedStatement = conexion.prepareStatement("SELECT nombre, apellido FROM usuarios WHERE especialidad = ?");
         preparedStatement.setString(1, especialidad);
         ResultSet resultSet = preparedStatement.executeQuery();
 
         // Procesar los resultados
         while (resultSet.next()) {
-            String nombreMedico = resultSet.getString("nombreMed");
-            nombresMedicos.add(nombreMedico);
+           String nombreMedico = resultSet.getString("nombre");
+            String apellidoMedico = resultSet.getString("apellido");
+            String nombreCompleto = nombreMedico + " " + apellidoMedico;
+            nombresCompletosMedicos.add(nombreCompleto);
         }
 
     } catch (Exception e) {
         System.out.println(e);
     }
 
-    return nombresMedicos;
+    return nombresCompletosMedicos;
 }
    
     //fin metodo obtenerMedicos
