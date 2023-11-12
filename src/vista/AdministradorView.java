@@ -17,6 +17,12 @@ public class AdministradorView extends javax.swing.JFrame {
         initComponents();
         this.setLocationRelativeTo(null);
     }
+        private String nombreUsuario;
+    
+    public void setNombreUsuario(String nombreUsuario) {
+           this.nombreUsuario = nombreUsuario;
+         //  jlabel_usuario.setText("Bienvenido " + nombreUsuario);
+    }
 
     /**
      * This method is called from within the constructor to initialize the form.

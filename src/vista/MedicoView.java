@@ -16,6 +16,12 @@ public class MedicoView extends javax.swing.JFrame {
     public MedicoView() {
         initComponents();
     }
+        private String nombreUsuario;
+    
+    public void setNombreUsuario(String nombreUsuario) {
+           this.nombreUsuario = nombreUsuario;
+          //jlabel_usuario.setText("Bienvenido " + nombreUsuario);
+    }
 
     /**
      * This method is called from within the constructor to initialize the form.

@@ -1,19 +1,10 @@
 
 package modelo;
 
-import controlador.Usuarios;
-import controlador.Agenda;
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
+import controlador.*;
+import java.sql.*;
 import javax.swing.JOptionPane;
-import vista.AdministradorView;
-import vista.MedicoView;
-import vista.PacienteView;
-import vista.SecretariaView;
+import vista.*;
 import java.util.List;
 import java.util.ArrayList;
 
@@ -71,12 +62,13 @@ import java.util.ArrayList;
 
     public static void iniciarSesion(String rut, String contrasena) {
            String rol = "";
+           String nombreUsuario = "";
            String url = "jdbc:mysql://localhost:3306/usuarios_galeno";
            String user = "root";
            String password = "";
 
            try (Connection conn  = DriverManager.getConnection(url, user, password)) {
-               String query = "SELECT rol FROM usuarios WHERE rut = ? AND rut = ?";
+               String query = "SELECT rol, nombre FROM usuarios WHERE rut = ? AND rut = ?";
                PreparedStatement stmt = conn.prepareStatement(query);
                stmt.setString(1, rut);
                stmt.setString(2, rut);
@@ -84,42 +76,45 @@ import java.util.ArrayList;
 
                if (rs.next()) {
                    rol = rs.getString("rol");
+                   nombreUsuario = rs.getString("nombre");
+
                } else {
                    JOptionPane.showMessageDialog(null, "No se encuentra usuario registrado");
                    System.out.println("Credenciales inválidas.");
-
+                   return;
                }
            } catch (SQLException e) {
                e.printStackTrace();
            }
 
            // Redirigir según el rol
-           switch (rol) {
-               case "Paciente":
-                   // Abrir pantalla de vista para el Decano
-                   PacienteView p = new PacienteView();
-                   p.setVisible(true);
+         // ...
 
-                   break;
-               case "Medico":
-                   // Abrir pantalla de vista para el Profesor
-                   MedicoView m = new MedicoView();
-                   m.setVisible(true);
-                   break;
-               case "Secretaria":
-                   // Abrir pantalla de vista para el Alumno
-                   SecretariaView s = new SecretariaView();
-                   s.setVisible(true);
-                   break;
-               case "administrador":
-                    // Abrir pantalla de vista para el Alumno
-                    AdministradorView a = new AdministradorView();
-                    a.setVisible(true);
-                      break;
-               default:
-                   System.out.println("Rol desconocido. No se puede abrir la pantalla de vista.");
-                   break;
-               }
+switch (rol) {
+    case "Paciente":
+        PacienteView p = new PacienteView();
+        p.setNombreUsuario(nombreUsuario);
+        p.setVisible(true);
+        break;
+    case "Medico":
+        MedicoView m = new MedicoView();
+        m.setNombreUsuario(nombreUsuario);
+        m.setVisible(true);
+        break;
+    case "Secretaria":
+        SecretariaView s = new SecretariaView();
+        s.setNombreUsuario(nombreUsuario);
+        s.setVisible(true);
+        break;
+    case "administrador":
+        AdministradorView a = new AdministradorView();
+        a.setNombreUsuario(nombreUsuario);
+        a.setVisible(true);
+        break;
+    default:
+        System.out.println("Rol desconocido. No se puede abrir la pantalla de vista.");
+        break;
+}
            }// fin metodo iniciar sesion 
 
  

@@ -4,11 +4,7 @@
  */
 package vista;
 
-import controlador.Agenda;
-import javax.swing.JOptionPane;
-import modelo.BD;
 
-import java.util.List;
 
 /**
  *
@@ -20,11 +16,18 @@ public class SecretariaView extends javax.swing.JFrame {
      * Creates new form SecretariaView
      */
     public SecretariaView() {
-        initComponents();
-                this.setExtendedState(this.MAXIMIZED_BOTH);
-        this.setLocationRelativeTo(null);
-    }
 
+        initComponents();
+        this.setExtendedState(this.MAXIMIZED_BOTH);
+        this.setLocationRelativeTo(null);
+
+    }
+    private String nombreUsuario;
+    
+    public void setNombreUsuario(String nombreUsuario) {
+           this.nombreUsuario = nombreUsuario;
+           jlabel_usuario.setText("Bienvenido " + nombreUsuario);
+    }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -35,16 +38,14 @@ public class SecretariaView extends javax.swing.JFrame {
     private void initComponents() {
 
         jPanel1 = new javax.swing.JPanel();
-        jLabel1 = new javax.swing.JLabel();
         jLayeredPane1 = new javax.swing.JLayeredPane();
         jButton1 = new javax.swing.JButton();
+        jlabel_usuario = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         jPanel1.setBackground(new java.awt.Color(102, 255, 255));
         jPanel1.setPreferredSize(new java.awt.Dimension(1424, 787));
-
-        jLabel1.setText("BIENVENIDO");
 
         jLayeredPane1.setBackground(new java.awt.Color(0, 153, 255));
         jLayeredPane1.setOpaque(true);
@@ -63,7 +64,7 @@ public class SecretariaView extends javax.swing.JFrame {
         jLayeredPane1Layout.setHorizontalGroup(
             jLayeredPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jLayeredPane1Layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap(1202, Short.MAX_VALUE)
                 .addComponent(jButton1)
                 .addGap(125, 125, 125))
         );
@@ -75,21 +76,24 @@ public class SecretariaView extends javax.swing.JFrame {
                 .addContainerGap(20, Short.MAX_VALUE))
         );
 
+        jlabel_usuario.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        jlabel_usuario.setPreferredSize(new java.awt.Dimension(102, 25));
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jLayeredPane1)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addContainerGap(921, Short.MAX_VALUE)
-                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 225, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(284, 284, 284))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jlabel_usuario, javax.swing.GroupLayout.PREFERRED_SIZE, 507, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(212, 212, 212))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 66, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jlabel_usuario, javax.swing.GroupLayout.PREFERRED_SIZE, 66, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(69, 69, 69)
                 .addComponent(jLayeredPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(609, Short.MAX_VALUE))
@@ -152,8 +156,8 @@ public class SecretariaView extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;
-    private javax.swing.JLabel jLabel1;
     private javax.swing.JLayeredPane jLayeredPane1;
     private javax.swing.JPanel jPanel1;
+    private javax.swing.JLabel jlabel_usuario;
     // End of variables declaration//GEN-END:variables
 }

@@ -7,7 +7,6 @@ package vista;
 import controlador.Agenda;
 import java.text.SimpleDateFormat;
 import java.util.List;
-import javax.crypto.SealedObject;
 import javax.swing.JOptionPane;
 import modelo.BD;
 
