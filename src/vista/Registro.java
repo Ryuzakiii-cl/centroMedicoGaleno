@@ -362,8 +362,6 @@ public class Registro extends javax.swing.JFrame {
         String correo = txt_correo.getText();
         String rol = "paciente";
         
-        
-        
         //validacion
         if (nombre.isEmpty() ||
             apellido.isEmpty() || 
@@ -372,7 +370,6 @@ public class Registro extends javax.swing.JFrame {
             telefono.isEmpty() || 
             correo.isEmpty() ) {
             JOptionPane.showMessageDialog(null, "Complete todos los campos");
-            
         } else {
             try {
                 u.setNombre(nombre);
@@ -383,7 +380,7 @@ public class Registro extends javax.swing.JFrame {
                 u.setCorreo(correo);
                 u.setRol(rol);
                 bd.conectar();
-                bd.agregar(u);
+                bd.registrar(u);
                 
                 
                 txt_name.setText("");
@@ -398,14 +395,6 @@ public class Registro extends javax.swing.JFrame {
                 JOptionPane.showMessageDialog(null, "No se pudo crear usuario"+ e);
             }
         }
-        
-        
-
-        
-        
-        
-        
-        
     }//GEN-LAST:event_btn_registroActionPerformed
 
     private void btn_atrasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_atrasActionPerformed

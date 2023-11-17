@@ -5,6 +5,7 @@
 package controlador;
 
 public class Agenda {
+    private String rutPaciente;
     private String nombreMed;
     private String especialidad;
     private String status;
@@ -13,11 +14,20 @@ public class Agenda {
     public Agenda() {
     }
 
-    public Agenda(String nombreMed, String especialidad, String status, String fecha) {
+    public Agenda(String rutPaciente, String nombreMed, String especialidad, String status, String fecha) {
+        this.rutPaciente = rutPaciente;
         this.nombreMed = nombreMed;
         this.especialidad = especialidad;
         this.status = status;
         this.fecha = fecha;
+    }
+
+    public String getRutPaciente() {
+        return rutPaciente;
+    }
+
+    public void setRutPaciente(String rutPaciente) {
+        this.rutPaciente = rutPaciente;
     }
 
     public String getNombreMed() {
@@ -43,24 +53,23 @@ public class Agenda {
     public void setStatus(String status) {
         this.status = status;
     }
-    
+
     public String getFecha() {
         return fecha;
     }
 
     public void setFecha(String fecha) {
-    this.fecha = fecha;
-}
+        this.fecha = fecha;
+    }
 
     @Override
     public String toString() {
-        return "Agenda{" + "nombreMedico=" + nombreMed + ", especialidad=" + especialidad + ", status=" + status + ", fecha=" + fecha + '}';
+        return "Agenda{" + "rutPaciente=" + rutPaciente + ", nombreMed=" + nombreMed + ", especialidad=" + especialidad + ", status=" + status + ", fecha=" + fecha + '}';
     }
+    
+    
+    
 
-  
 
-    
-    
-    
     
 }//fin clase
