@@ -109,7 +109,10 @@ import javax.swing.table.DefaultTableModel;
             //CREATE
             public boolean agendarCita(Agenda agenda){
             try {
-            String SQL = "INSERT INTO agenda_medica(rutPaciente,nombreMed,especialidad,status,fecha)values('"+agenda.getRutPaciente()+"','"+agenda.getNombreMed()+"','"+agenda.getEspecialidad()+"','"+agenda.getStatus()+"','"+agenda.getFecha()+"')";
+            String SQL = "INSERT INTO agenda_medica(rutPaciente, nombreMed, especialidad, fecha, status, valorConsulta) VALUES ('"+agenda.getRutPaciente()+"','"+agenda.getNombreMed()+"','"+agenda.getEspecialidad()+"','"+agenda.getFecha()+"','"+agenda.getStatus()+"','"+agenda.getValorConsulta()+"')";
+            System.out.println("Sentencia SQL: " + SQL);
+
+            
             Statement s = conexion.createStatement();
             s.executeUpdate( SQL );
             s.close();
@@ -136,20 +139,22 @@ import javax.swing.table.DefaultTableModel;
                 modelo.addColumn("Nombre Medico");
                 modelo.addColumn("Especialidad");
                 modelo.addColumn("Fecha");
-                modelo.addColumn("Status");
+                modelo.addColumn("Estado");
+
 
                 String consulta = "SELECT rutPaciente, nombreMed, especialidad, fecha, status FROM agenda_medica";
                 PreparedStatement statement = conexion.prepareStatement(consulta);
                 ResultSet resultSet = statement.executeQuery();
 
                 while (resultSet.next()) {
-                    Object[] fila = new Object[7]; // 7 es el número de columnas en la tabla
+                    Object[] fila = new Object[6]; // 7 es el número de columnas en la tabla
 
                     fila[0] = resultSet.getString("rutPaciente");
                     fila[1] = resultSet.getString("nombreMed");
                     fila[2] = resultSet.getString("especialidad");
                     fila[3] = resultSet.getString("fecha");
                     fila[4] = resultSet.getString("status");
+
                     modelo.addRow(fila);
                 }
                 tabla.setModel(modelo);
@@ -195,55 +200,71 @@ import javax.swing.table.DefaultTableModel;
             
             
 
-    public boolean registrar(Usuarios usuarios ){
-        try {
-        String SQL = "INSERT INTO usuarios(nombre,apellido,rut,direccion,telefono,correo,rol)values('"+usuarios.getNombre()+"','"+usuarios.getApellido()+"','"+usuarios.getRut()+"','"+usuarios.getDireccion()+"','"+usuarios.getTelefono()+"','"+usuarios.getCorreo()+"','"+usuarios.getRol()+"')";
-        Statement s = conexion.createStatement();
-        s.executeUpdate( SQL );
-        s.close();
+            public boolean registrar(Usuarios usuarios ){
+                try {
+                String SQL = "INSERT INTO usuarios(nombre,apellido,rut,direccion,telefono,correo,rol,especialidad)values('"+usuarios.getNombre()+"','"+usuarios.getApellido()+"','"+usuarios.getRut()+"','"+usuarios.getDireccion()+"','"+usuarios.getTelefono()+"','"+usuarios.getCorreo()+"','"+usuarios.getRol()+"','"+usuarios.getEspecialidad()+"')";
+                Statement s = conexion.createStatement();
+                s.executeUpdate( SQL );
+                s.close();
+
+                } catch (SQLException e) {
+                    System.out.println(e.getMessage());
+                    return false;
+                }
+                return true;
+            }  //fin metodo agregar
+ 
+
+    
+            public List<String> obtenerMedicos(String especialidad) {
+                List<String> nombresCompletosMedicos = new ArrayList<>();
+            try {
+                PreparedStatement preparedStatement = conexion.prepareStatement("SELECT nombre, apellido FROM usuarios WHERE especialidad = ?");
+                preparedStatement.setString(1, especialidad);
+                ResultSet resultSet = preparedStatement.executeQuery();
+                // Procesar los resultados
+                while (resultSet.next()) {
+                   String nombreMedico = resultSet.getString("nombre");
+                    String apellidoMedico = resultSet.getString("apellido");
+                    String nombreCompleto = nombreMedico + " " + apellidoMedico;
+                    nombresCompletosMedicos.add(nombreCompleto);
+                    }
+                }
+            catch (Exception e) {
+                System.out.println(e);
+                }
+                return nombresCompletosMedicos;
+            }//fin metodo obtenerMedicos
+    
+    
+
             
-        } catch (SQLException e) {
-            System.out.println(e.getMessage());
-            return false;
-        }
-        return true;
-    }  //fin metodo agregar
- 
- 
+            public void informe(JTable tabla) throws SQLException {
+                agendaMedica();
+                DefaultTableModel modelo2 = new DefaultTableModel();
+                modelo2.addColumn("Nombre Medico");
+                modelo2.addColumn("Fecha");
+                modelo2.addColumn("Monto Recaudado");
 
-    
+                String consulta = "SELECT nombreMed, fecha, valorConsulta FROM agenda_medica";
+                PreparedStatement statement = conexion.prepareStatement(consulta);
+                ResultSet resultSet = statement.executeQuery();
 
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    public List<String> obtenerMedicos(String especialidad) {
-    List<String> nombresCompletosMedicos = new ArrayList<>();
+                while (resultSet.next()) {
+                    Object[] fila = new Object[3]; // 7 es el número de columnas en la tabla
 
-    try {
-        PreparedStatement preparedStatement = conexion.prepareStatement("SELECT nombre, apellido FROM usuarios WHERE especialidad = ?");
-        preparedStatement.setString(1, especialidad);
-        ResultSet resultSet = preparedStatement.executeQuery();
-        // Procesar los resultados
-        while (resultSet.next()) {
-           String nombreMedico = resultSet.getString("nombre");
-            String apellidoMedico = resultSet.getString("apellido");
-            String nombreCompleto = nombreMedico + " " + apellidoMedico;
-            nombresCompletosMedicos.add(nombreCompleto);
-            }
-        }
-    catch (Exception e) {
-        System.out.println(e);
-        }
-        return nombresCompletosMedicos;
-    }//fin metodo obtenerMedicos
-    
-    
+                    fila[0] = resultSet.getString("nombreMed");
+                    fila[1] = resultSet.getString("fecha");
+                    fila[2] = resultSet.getInt("valorConsulta");
+                    modelo2.addRow(fila);
+                }
+                tabla.setModel(modelo2);
+                resultSet.close();
+                statement.close();
+                desconectar();
+            }//FIN METODO MOSTRAR DATOS
+            
+            
     
     
 }//fin clase BD

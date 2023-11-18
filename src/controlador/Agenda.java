@@ -8,18 +8,20 @@ public class Agenda {
     private String rutPaciente;
     private String nombreMed;
     private String especialidad;
-    private String status;
     private String fecha;
+    private String status;
+    private int valorConsulta;
 
     public Agenda() {
     }
 
-    public Agenda(String rutPaciente, String nombreMed, String especialidad, String status, String fecha) {
+    public Agenda(String rutPaciente, String nombreMed, String especialidad, String fecha, String status, int valorConsulta) {
         this.rutPaciente = rutPaciente;
         this.nombreMed = nombreMed;
         this.especialidad = especialidad;
-        this.status = status;
         this.fecha = fecha;
+        this.status = status;
+        this.valorConsulta = valorConsulta;
     }
 
     public String getRutPaciente() {
@@ -46,14 +48,6 @@ public class Agenda {
         this.especialidad = especialidad;
     }
 
-    public String getStatus() {
-        return status;
-    }
-
-    public void setStatus(String status) {
-        this.status = status;
-    }
-
     public String getFecha() {
         return fecha;
     }
@@ -62,14 +56,29 @@ public class Agenda {
         this.fecha = fecha;
     }
 
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
+    }
+
+    public int getValorConsulta() {
+        return valorConsulta;
+    }
+
+    public void setValorConsulta(int valorConsulta) {
+        this.valorConsulta = valorConsulta;
+    }
+
     @Override
     public String toString() {
-        return "Agenda{" + "rutPaciente=" + rutPaciente + ", nombreMed=" + nombreMed + ", especialidad=" + especialidad + ", status=" + status + ", fecha=" + fecha + '}';
+        return "Agenda{" + "rutPaciente=" + rutPaciente + ", nombreMed=" + nombreMed + ", especialidad=" + especialidad + ", fecha=" + fecha + ", status=" + status + ", valorConsulta=" + valorConsulta + '}';
     }
-    
+
     
     
 
-
-    
+        
 }//fin clase

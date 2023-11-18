@@ -319,15 +319,17 @@ public class AgendaHoraSec extends javax.swing.JFrame {
         String rutPaciente = txt_rutPaciente.getText();
         String nombreMed = cbox_medico.getSelectedItem().toString();
         String especialidad = cbox_especialidad.getSelectedItem().toString();
-        String status = "agendado";
         String fecha = txt_fechaAgenda.getText();
-
+        String status = "agendado";
+        int valorConsulta = 4180;
+        
         try {
             a.setRutPaciente(rutPaciente);
             a.setNombreMed(nombreMed);
             a.setEspecialidad(especialidad);
-            a.setStatus(status);
             a.setFecha(fecha);
+            a.setStatus(status);
+            a.setValorConsulta(valorConsulta);
             bd.agendaMedica();
             bd.agendarCita(a);
             bd.actualizarCitas(modelo);

@@ -5,6 +5,8 @@
 package vista;
 
 import controlador.Usuarios;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.util.HashSet;
 import modelo.BD;
 import javax.swing.JFrame;
@@ -97,6 +99,11 @@ public class Registro extends javax.swing.JFrame {
         btn_is.setBackground(new java.awt.Color(255, 255, 255));
         btn_is.setForeground(new java.awt.Color(0, 0, 0));
         btn_is.setText("Iniciar Sesion");
+        btn_is.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_isActionPerformed(evt);
+            }
+        });
 
         logo.setFont(new java.awt.Font("Segoe UI", 1, 36)); // NOI18N
         logo.setForeground(new java.awt.Color(0, 0, 0));
@@ -179,19 +186,6 @@ public class Registro extends javax.swing.JFrame {
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(478, 478, 478)
-                .addComponent(jLabel1)
-                .addGap(18, 18, 18)
-                .addComponent(txt_rut, javax.swing.GroupLayout.PREFERRED_SIZE, 148, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(jLabel2)
-                .addGap(18, 18, 18)
-                .addComponent(txt_pass, javax.swing.GroupLayout.PREFERRED_SIZE, 148, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(cbox_showpass)
-                .addGap(18, 18, 18)
-                .addComponent(btn_is))
-            .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(91, 91, 91)
                 .addComponent(logo, javax.swing.GroupLayout.PREFERRED_SIZE, 407, javax.swing.GroupLayout.PREFERRED_SIZE))
             .addComponent(banner, javax.swing.GroupLayout.PREFERRED_SIZE, 1189, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -242,11 +236,25 @@ public class Registro extends javax.swing.JFrame {
                             .addGap(36, 36, 36)
                             .addComponent(btn_atras, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addComponent(registro, javax.swing.GroupLayout.PREFERRED_SIZE, 440, javax.swing.GroupLayout.PREFERRED_SIZE))))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel1)
+                .addGap(18, 18, 18)
+                .addComponent(txt_rut, javax.swing.GroupLayout.PREFERRED_SIZE, 148, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(jLabel2)
+                .addGap(18, 18, 18)
+                .addComponent(txt_pass, javax.swing.GroupLayout.PREFERRED_SIZE, 148, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(24, 24, 24)
+                .addComponent(cbox_showpass)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(btn_is)
+                .addGap(24, 24, 24))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(6, 6, 6)
+                .addGap(27, 27, 27)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(3, 3, 3)
@@ -256,11 +264,10 @@ public class Registro extends javax.swing.JFrame {
                         .addGap(3, 3, 3)
                         .addComponent(jLabel2))
                     .addComponent(txt_pass, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(1, 1, 1)
-                        .addComponent(cbox_showpass))
-                    .addComponent(btn_is))
-                .addGap(6, 6, 6)
+                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(btn_is)
+                        .addComponent(cbox_showpass)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(logo, javax.swing.GroupLayout.PREFERRED_SIZE, 82, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(6, 6, 6)
                 .addComponent(banner, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -361,6 +368,7 @@ public class Registro extends javax.swing.JFrame {
         String telefono = txt_fono.getText();
         String correo = txt_correo.getText();
         String rol = "paciente";
+        String especialidad = "paciente";
         
         //validacion
         if (nombre.isEmpty() ||
@@ -379,6 +387,7 @@ public class Registro extends javax.swing.JFrame {
                 u.setTelefono(telefono);
                 u.setCorreo(correo);
                 u.setRol(rol);
+                u.setEspecialidad(especialidad);
                 bd.conectar();
                 bd.registrar(u);
                 
@@ -414,6 +423,27 @@ public class Registro extends javax.swing.JFrame {
         txt_correo.setText("");
         
     }//GEN-LAST:event_btn_limpiarActionPerformed
+
+    private void btn_isActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_isActionPerformed
+                BD bd = new BD();
+        
+        PreparedStatement ps = null;
+        ResultSet re = null;
+        String user = txt_rut.getText();
+        String pass = txt_pass.getText();
+        
+        if (user.equals("") || pass.equals("")) {
+            JOptionPane.showMessageDialog(null, "Ingrese rut y/o contraseña");
+            
+        } else {
+            try {
+                bd.conectar();
+                BD.iniciarSesion(user, pass);
+                this.setVisible(false);
+            } catch (Exception e) {
+            }
+        }
+    }//GEN-LAST:event_btn_isActionPerformed
 
     /**
      * @param args the command line arguments
