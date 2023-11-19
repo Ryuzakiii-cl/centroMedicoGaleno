@@ -265,6 +265,36 @@ import javax.swing.table.DefaultTableModel;
             }//FIN METODO MOSTRAR DATOS
             
             
+            
+            public ResultSet obtenerNombreMedico(String especialidad, String nombreMed) throws SQLException {
+                String consulta = "SELECT nombreMed, fecha, valorConsulta FROM agenda_medica WHERE (especialidad = ? AND nombreMed = ?)";
+                PreparedStatement preparedStatement = conexion.prepareStatement(consulta);
+                preparedStatement.setString(1, especialidad);
+                preparedStatement.setString(2,nombreMed);
+                return preparedStatement.executeQuery();
+            }//FIN METODO OBTENERNOMBRE MEDICO
+            
+            public void informeFiltrado(JTable tabla, String especialidad, String nombreMed) throws SQLException {
+                agendaMedica();
+                DefaultTableModel modelo2 = new DefaultTableModel();
+                modelo2.addColumn("Nombre Medico");
+                modelo2.addColumn("Fecha");
+                modelo2.addColumn("Monto Recaudado");
+
+                ResultSet resultSet = obtenerNombreMedico(especialidad,nombreMed);
+                
+                while (resultSet.next()) {
+                    Object[] fila = new Object[3]; // 7 es el número de columnas en la tabla
+
+                    fila[0] = resultSet.getString("nombreMed");
+                    fila[1] = resultSet.getString("fecha");
+                    fila[2] = resultSet.getInt("valorConsulta");
+                    modelo2.addRow(fila);
+                }
+                tabla.setModel(modelo2);
+                resultSet.close();
+                desconectar();
+            }//FIN METODO MOSTRAR DATOS
     
     
 }//fin clase BD

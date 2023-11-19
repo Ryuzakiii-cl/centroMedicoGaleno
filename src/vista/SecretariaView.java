@@ -37,7 +37,6 @@ public class SecretariaView extends javax.swing.JFrame {
         jLayeredPane1 = new javax.swing.JLayeredPane();
         jButton1 = new javax.swing.JButton();
         btn_recaudar = new javax.swing.JButton();
-        jButton4 = new javax.swing.JButton();
         jlabel_usuario = new javax.swing.JLabel();
         jButton2 = new javax.swing.JButton();
         jLabel6 = new javax.swing.JLabel();
@@ -62,16 +61,13 @@ public class SecretariaView extends javax.swing.JFrame {
         });
         jLayeredPane1.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(1130, 0, 190, 40));
 
-        btn_recaudar.setText("RECAUDAR");
+        btn_recaudar.setText("INFORMES");
         btn_recaudar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btn_recaudarActionPerformed(evt);
             }
         });
         jLayeredPane1.add(btn_recaudar, new org.netbeans.lib.awtextra.AbsoluteConstraints(900, 0, 190, 40));
-
-        jButton4.setText("INFORMES");
-        jLayeredPane1.add(jButton4, new org.netbeans.lib.awtextra.AbsoluteConstraints(670, 0, 190, 40));
 
         jlabel_usuario.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
         jlabel_usuario.setPreferredSize(new java.awt.Dimension(102, 25));
@@ -243,7 +239,6 @@ public class SecretariaView extends javax.swing.JFrame {
     private javax.swing.JButton btn_recaudar;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
-    private javax.swing.JButton jButton4;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
