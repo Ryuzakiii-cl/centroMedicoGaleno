@@ -2,13 +2,21 @@
 package modelo;
 
 import controlador.*;
+import java.io.IOException;
 import java.sql.*;
+import java.text.SimpleDateFormat;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import javax.swing.JOptionPane;
 import vista.*;
 import java.util.List;
 import java.util.ArrayList;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
+import org.apache.pdfbox.pdmodel.PDDocument;
+import org.apache.pdfbox.pdmodel.PDPage;
+import org.apache.pdfbox.pdmodel.PDPageContentStream;
+import org.apache.pdfbox.pdmodel.font.PDType1Font;
 
 
     public class BD {
@@ -23,7 +31,7 @@ import javax.swing.table.DefaultTableModel;
             String user = "root";
             String password = "";
             conexion = DriverManager.getConnection(url, user, password);
-                System.out.println("Conexion Lista");   
+                System.out.println("Conectado a usuarios_galeno");   
             } catch (SQLException e) {
                 System.out.println("No se pudo conectar la base de datos"+ e.getMessage());
             }       
@@ -37,7 +45,7 @@ import javax.swing.table.DefaultTableModel;
             String password = "";
             
             conexion = DriverManager.getConnection(url,user,password);
-                System.out.println("Conexion a la agenda medica lista");
+                System.out.println("Conectado a agenda");
             } catch (SQLException e) {
                 System.out.println("No se pudo conectar a la base de datos de la agenda medica"+ e.getMessage());
             }
@@ -240,61 +248,142 @@ import javax.swing.table.DefaultTableModel;
 
             
             public void informe(JTable tabla) throws SQLException {
-                agendaMedica();
-                DefaultTableModel modelo2 = new DefaultTableModel();
-                modelo2.addColumn("Nombre Medico");
-                modelo2.addColumn("Fecha");
-                modelo2.addColumn("Monto Recaudado");
+                    agendaMedica();
+                    DefaultTableModel modelo2 = new DefaultTableModel();
+                    modelo2.addColumn("Nombre Medico");
+                    modelo2.addColumn("Fecha");
+                    modelo2.addColumn("Monto Recaudado");
 
-                String consulta = "SELECT nombreMed, fecha, valorConsulta FROM agenda_medica";
-                PreparedStatement statement = conexion.prepareStatement(consulta);
-                ResultSet resultSet = statement.executeQuery();
+                    String consulta = "SELECT nombreMed, fecha, valorConsulta FROM agenda_medica";
+                    PreparedStatement statement = conexion.prepareStatement(consulta);
+                    ResultSet resultSet = statement.executeQuery();
 
-                while (resultSet.next()) {
-                    Object[] fila = new Object[3]; // 7 es el número de columnas en la tabla
+                    while (resultSet.next()) {
+                        Object[] fila = new Object[3]; // 7 es el número de columnas en la tabla
 
-                    fila[0] = resultSet.getString("nombreMed");
-                    fila[1] = resultSet.getString("fecha");
-                    fila[2] = resultSet.getInt("valorConsulta");
-                    modelo2.addRow(fila);
+                        fila[0] = resultSet.getString("nombreMed");
+                        fila[1] = resultSet.getString("fecha");
+                        fila[2] = resultSet.getInt("valorConsulta");
+                        modelo2.addRow(fila);
+                    }
+                    tabla.setModel(modelo2);
+                    resultSet.close();
+                    statement.close();
+                    desconectar();
+                }//FIN METODO MOSTRAR DATOS
+            
+            
+            
+            public ResultSet obtenerFiltro(String especialidad, String nombreMed, String fechaDesde, String fechaHasta) throws SQLException {
+                String consulta = "SELECT nombreMed, fecha, valorConsulta FROM agenda_medica WHERE especialidad = ? AND nombreMed = ?";
+
+                // Agregar filtro por fecha si las fechas no son nulas
+                if (fechaDesde != null && fechaHasta != null) {
+                    consulta += " AND fecha BETWEEN ? AND ?";
                 }
-                tabla.setModel(modelo2);
-                resultSet.close();
-                statement.close();
-                desconectar();
-            }//FIN METODO MOSTRAR DATOS
-            
-            
-            
-            public ResultSet obtenerNombreMedico(String especialidad, String nombreMed) throws SQLException {
-                String consulta = "SELECT nombreMed, fecha, valorConsulta FROM agenda_medica WHERE (especialidad = ? AND nombreMed = ?)";
+
                 PreparedStatement preparedStatement = conexion.prepareStatement(consulta);
                 preparedStatement.setString(1, especialidad);
-                preparedStatement.setString(2,nombreMed);
+                preparedStatement.setString(2, nombreMed);
+
+                // Configurar parámetros de fecha si las fechas no son nulas
+                if (fechaDesde != null && fechaHasta != null) {
+                    preparedStatement.setString(3, fechaDesde);
+                    preparedStatement.setString(4, fechaHasta);
+                }
+
                 return preparedStatement.executeQuery();
-            }//FIN METODO OBTENERNOMBRE MEDICO
+                }//FIN METODO OBTENERNOMBRE MEDICO
             
-            public void informeFiltrado(JTable tabla, String especialidad, String nombreMed) throws SQLException {
+            public void informeFiltrado(JTable tabla, String especialidad, String nombreMed, String fechaDesde, String fechaHasta) throws SQLException {
                 agendaMedica();
                 DefaultTableModel modelo2 = new DefaultTableModel();
                 modelo2.addColumn("Nombre Medico");
                 modelo2.addColumn("Fecha");
                 modelo2.addColumn("Monto Recaudado");
 
-                ResultSet resultSet = obtenerNombreMedico(especialidad,nombreMed);
-                
+                ResultSet resultSet = obtenerFiltro(especialidad, nombreMed, fechaDesde, fechaHasta);
+
                 while (resultSet.next()) {
-                    Object[] fila = new Object[3]; // 7 es el número de columnas en la tabla
+                    Object[] fila = new Object[3]; // 3 es el número de columnas en la tabla
 
                     fila[0] = resultSet.getString("nombreMed");
                     fila[1] = resultSet.getString("fecha");
                     fila[2] = resultSet.getInt("valorConsulta");
                     modelo2.addRow(fila);
                 }
+
                 tabla.setModel(modelo2);
-                resultSet.close();
-                desconectar();
-            }//FIN METODO MOSTRAR DATOS
-    
-    
+                            resultSet.close();
+                            desconectar();
+                }//FIN METODO MOSTRAR DATOS
+            
+            
+            
+            
+            public void generarInformePDF(JTable tabla) {
+            try {
+                
+                DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd_MM_yyyy_HH:mm:ss");
+                String timestamp = LocalDateTime.now().format(formatter);
+                // Ruta del archivo PDF (ajústala según tus necesidades)
+                String filePath = "Informes/informe_"+timestamp+"_.pdf";
+
+                PDDocument document = new PDDocument();
+                PDPage page = new PDPage();
+                document.addPage(page);
+
+                PDPageContentStream contentStream = new PDPageContentStream(document, page);
+
+                // Configurar posición inicial
+                float margin = 50;
+                float yStart = page.getMediaBox().getHeight() - margin;
+                float tableWidth = page.getMediaBox().getWidth() - 2 * margin;
+                float yPosition = yStart;
+                int rowsPerPage = 30;
+                int numRows = tabla.getRowCount();
+
+                // Agregar encabezado al documento
+                contentStream.beginText();
+                contentStream.setFont(PDType1Font.HELVETICA_BOLD, 12);
+                contentStream.newLineAtOffset(margin, yPosition);
+                contentStream.showText("Informe Médico");
+                contentStream.endText();
+                yPosition -= 20;
+
+                // Agregar contenido de la tabla al documento
+                for (int i = 0; i < numRows; i++) {
+                    yPosition -= 20;
+                    contentStream.beginText();
+                    contentStream.setFont(PDType1Font.HELVETICA, 12);
+                    contentStream.newLineAtOffset(margin, yPosition);
+
+                    for (int j = 0; j < tabla.getColumnCount(); j++) {
+                        contentStream.showText(tabla.getColumnName(j) + ": " + tabla.getValueAt(i, j).toString());
+                        contentStream.newLineAtOffset(150, 0);
+                    }
+
+                    contentStream.endText();
+                    if (i % rowsPerPage == 0 && i > 0) {
+                        contentStream.close();
+                        page = new PDPage();
+                        document.addPage(page);
+                        contentStream = new PDPageContentStream(document, page);
+                        yPosition = yStart;
+                    }
+                }
+
+                contentStream.close();
+
+                document.save(filePath);
+                document.close();
+
+                JOptionPane.showMessageDialog(null, "Informe PDF generado exitosamente.");
+
+            } catch (IOException e) {
+                e.printStackTrace();
+                JOptionPane.showMessageDialog(null, "Error al generar el informe PDF.");
+            }
+        }
+
 }//fin clase BD

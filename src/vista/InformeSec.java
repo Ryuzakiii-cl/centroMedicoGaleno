@@ -5,11 +5,14 @@
 package vista;
 
 import java.sql.SQLException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import modelo.BD;
+import javax.swing.JTable;
 
 /**
  *
@@ -131,6 +134,11 @@ public class InformeSec extends javax.swing.JFrame {
         });
 
         btn_gi.setText("Generar Informe");
+        btn_gi.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_giActionPerformed(evt);
+            }
+        });
 
         jLabel8.setFont(new java.awt.Font("Segoe UI", 1, 36)); // NOI18N
         jLabel8.setForeground(new java.awt.Color(0, 0, 0));
@@ -272,28 +280,50 @@ public class InformeSec extends javax.swing.JFrame {
     private void btn_filtrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_filtrarActionPerformed
         BD con = new BD();
 
-        String especialidad = cbox_especialidad.getSelectedItem() != null ? cbox_especialidad.getSelectedItem().toString() : "";
-        String nombreMed = cbox_medico.getSelectedItem() != null ? cbox_medico.getSelectedItem().toString() : "";
+    String especialidad = cbox_especialidad.getSelectedItem() != null ? cbox_especialidad.getSelectedItem().toString() : "";
+    String nombreMed = cbox_medico.getSelectedItem() != null ? cbox_medico.getSelectedItem().toString() : "";
 
-        try {
-            if ("Especialidad".equals(especialidad) || nombreMed.isBlank()) {
-                JOptionPane.showMessageDialog(null, "Ingrese Especialidad y Nombre del médico");
-                con.informe(modelo2);
-            } else {
-                con.informeFiltrado(modelo2, especialidad,nombreMed);
-                int numrow = modelo2.getRowCount();
-                int total = 0;
-                for (int i = 0; i < numrow; i++) {
-                    int val = Integer.parseInt(modelo2.getValueAt(i, 2).toString());
-                    total += +val;
-                }
-                lbl_total.setText("$"+Integer.toString(total));
-                }
-        } 
-        catch (SQLException ex) {
-            Logger.getLogger(InformeSec.class.getName()).log(Level.SEVERE, null, ex);
+    // Obtener fecha desde el JDateChooser "jfecha_start"
+    Date fechaDesdeDate = jfecha_start.getDate();
+    String fechaDesdeString = null;
+
+    if (fechaDesdeDate != null) {
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+        fechaDesdeString = sdf.format(fechaDesdeDate);
+    }
+
+    // Obtener fecha desde el JDateChooser "jfecha_end"
+    Date fechaHastaDate = jfecha_end.getDate();
+    String fechaHastaString = null;
+
+    if (fechaHastaDate != null) {
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+        fechaHastaString = sdf.format(fechaHastaDate);
+    }
+
+    try {
+        if ("Especialidad".equals(especialidad) || nombreMed.isBlank()) {
+            JOptionPane.showMessageDialog(null, "Ingrese Especialidad y Nombre del médico");
+            con.informe(modelo2);
+        } else {
+            con.informeFiltrado(modelo2, especialidad, nombreMed, fechaDesdeString, fechaHastaString);
+            int numrow = modelo2.getRowCount();
+            int total = 0;
+            for (int i = 0; i < numrow; i++) {
+                int val = Integer.parseInt(modelo2.getValueAt(i, 2).toString());
+                total += val;
+            }
+            lbl_total.setText("$" + Integer.toString(total));
         }
+    } catch (SQLException ex) {
+        Logger.getLogger(InformeSec.class.getName()).log(Level.SEVERE, null, ex);
+    }
     }//GEN-LAST:event_btn_filtrarActionPerformed
+
+    private void btn_giActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_giActionPerformed
+        BD con = new BD();
+        con.generarInformePDF(modelo2);
+    }//GEN-LAST:event_btn_giActionPerformed
 
     /**
      * @param args the command line arguments
