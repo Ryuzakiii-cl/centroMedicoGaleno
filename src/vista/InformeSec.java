@@ -28,6 +28,11 @@ public class InformeSec extends javax.swing.JFrame {
         this.setLocationRelativeTo(null);
         this.setResizable(false);
     }
+    private int obtenerTotalRecaudado() {
+        String totalTexto = lbl_total.getText().replace("$", "");
+        return Integer.parseInt(totalTexto);
+    }
+    
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -278,7 +283,7 @@ public class InformeSec extends javax.swing.JFrame {
     }//GEN-LAST:event_cbox_especialidadActionPerformed
 
     private void btn_filtrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_filtrarActionPerformed
-        BD con = new BD();
+    BD con = new BD();
 
     String especialidad = cbox_especialidad.getSelectedItem() != null ? cbox_especialidad.getSelectedItem().toString() : "";
     String nombreMed = cbox_medico.getSelectedItem() != null ? cbox_medico.getSelectedItem().toString() : "";
@@ -322,7 +327,8 @@ public class InformeSec extends javax.swing.JFrame {
 
     private void btn_giActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_giActionPerformed
         BD con = new BD();
-        con.generarInformePDF(modelo2);
+        int totalRecaudado = obtenerTotalRecaudado();
+        con.generarInformePDF(modelo2, totalRecaudado);
     }//GEN-LAST:event_btn_giActionPerformed
 
     /**
