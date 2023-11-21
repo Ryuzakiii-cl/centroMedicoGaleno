@@ -23,25 +23,7 @@ public class AgendaHoraSec extends javax.swing.JFrame {
      * Creates new form AgendaHoraSec
      */
     public AgendaHoraSec() {
-        initComponents(
-        txt_rutPaciente.getDocument().addDocumentListener(new DocumentListener() {
-            @Override
-            public void insertUpdate(DocumentEvent e) {
-                filterTable();
-                }
-
-            @Override
-            public void removeUpdate(DocumentEvent e) {
-                filterTable();
-                }
-
-            @Override
-            public void changedUpdate(DocumentEvent e) {
-                // No es necesario para documentos sin formato
-                }
-            }
-        );
-    );
+        initComponents();
         
 
 
