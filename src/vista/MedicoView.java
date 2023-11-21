@@ -25,14 +25,19 @@ public class MedicoView extends javax.swing.JFrame {
         this.setLocationRelativeTo(null);
         this.setResizable(false);
     }
-        private String nombreUsuario;
+
         private int filaSeleccionada = -1;
     
-    public void setNombreUsuario(String nombreUsuario) {
-           this.nombreUsuario = nombreUsuario;
-           jLabel1.setText("Bienvenido/a Dr/a. " + nombreUsuario);
-    }
+        private String nombreUsuario;
+        private String rutUsuario;
 
+        public void setRutUsuario(String rutUsuario) {
+            //jlabel_usuario2.setText("RUT: "+rutUsuario);
+        }
+
+        public void setNombreUsuario(String nombreUsuario) {
+            jLabel1.setText("Bienvenido/A Dr. "+nombreUsuario);
+        }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -45,7 +50,6 @@ public class MedicoView extends javax.swing.JFrame {
         jPanel1 = new javax.swing.JPanel();
         jLabel8 = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
-        jToggleButton1 = new javax.swing.JToggleButton();
         jLayeredPane1 = new javax.swing.JLayeredPane();
         jButton1 = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
@@ -54,6 +58,7 @@ public class MedicoView extends javax.swing.JFrame {
         modelo2 = new javax.swing.JTable();
         btn_finalizar = new javax.swing.JButton();
         btn_citas = new javax.swing.JButton();
+        btn_cerrar = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -65,8 +70,6 @@ public class MedicoView extends javax.swing.JFrame {
 
         jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(0, 0, 0));
-
-        jToggleButton1.setText("Cerrar Sesion");
 
         jLayeredPane1.setBackground(new java.awt.Color(0, 105, 255));
         jLayeredPane1.setOpaque(true);
@@ -128,18 +131,26 @@ public class MedicoView extends javax.swing.JFrame {
             }
         });
 
+        btn_cerrar.setText("Cerrar Sesion");
+        btn_cerrar.setToolTipText("");
+        btn_cerrar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_cerrarActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(33, 33, 33)
-                .addComponent(jLabel8, javax.swing.GroupLayout.DEFAULT_SIZE, 510, Short.MAX_VALUE)
-                .addGap(285, 285, 285)
+                .addComponent(jLabel8, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGap(424, 424, 424)
                 .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 315, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(103, 103, 103)
-                .addComponent(jToggleButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 141, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(90, 90, 90))
+                .addGap(75, 75, 75)
+                .addComponent(btn_cerrar, javax.swing.GroupLayout.PREFERRED_SIZE, 141, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(126, 126, 126))
             .addComponent(jLayeredPane1)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(399, 399, 399)
@@ -161,12 +172,12 @@ public class MedicoView extends javax.swing.JFrame {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(31, 31, 31)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 66, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 66, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 66, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 66, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(52, 52, 52)
-                        .addComponent(jToggleButton1)))
+                        .addComponent(btn_cerrar)))
                 .addGap(42, 42, 42)
                 .addComponent(jLayeredPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(36, 36, 36)
@@ -242,6 +253,12 @@ public class MedicoView extends javax.swing.JFrame {
             }
     }//GEN-LAST:event_modelo2ComponentShown
 
+    private void btn_cerrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_cerrarActionPerformed
+        Principal p = new Principal();
+        this.setVisible(false);
+        p.setVisible(true);
+    }//GEN-LAST:event_btn_cerrarActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -278,6 +295,7 @@ public class MedicoView extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btn_cerrar;
     private javax.swing.JButton btn_citas;
     private javax.swing.JButton btn_finalizar;
     private javax.swing.JButton jButton1;
@@ -288,7 +306,6 @@ public class MedicoView extends javax.swing.JFrame {
     private javax.swing.JLayeredPane jLayeredPane1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JToggleButton jToggleButton1;
     private javax.swing.JTable modelo2;
     // End of variables declaration//GEN-END:variables
 }

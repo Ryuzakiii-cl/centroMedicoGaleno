@@ -265,7 +265,7 @@ public class InformeSec extends javax.swing.JFrame {
         BD bd = new BD();
         try {
             // Conectar a la base de datos
-            bd.conectar();
+            bd.agendaMedica();
 
             // Obtener los nombres de los médicos para la especialidad seleccionada
             List<String> nombresCompletosMedicos = bd.obtenerMedicos(especialidadSeleccionada);

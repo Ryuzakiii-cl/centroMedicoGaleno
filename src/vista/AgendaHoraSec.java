@@ -3,7 +3,6 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
 package vista;
-
 import controlador.Agenda;
 import java.sql.SQLException;
 import java.text.SimpleDateFormat;
@@ -24,10 +23,44 @@ public class AgendaHoraSec extends javax.swing.JFrame {
      * Creates new form AgendaHoraSec
      */
     public AgendaHoraSec() {
-        initComponents();
+        initComponents(
+        txt_rutPaciente.getDocument().addDocumentListener(new DocumentListener() {
+            @Override
+            public void insertUpdate(DocumentEvent e) {
+                filterTable();
+                }
+
+            @Override
+            public void removeUpdate(DocumentEvent e) {
+                filterTable();
+                }
+
+            @Override
+            public void changedUpdate(DocumentEvent e) {
+                // No es necesario para documentos sin formato
+                }
+            }
+        );
+    );
+        
+
+
+
+        
         this.setLocationRelativeTo(null);  
         this.setResizable(false);
-        
+    }
+    
+        private String nombreUsuario;
+        private String rutUsuario;
+    
+    public void setNombreUsuario(String nombreUsuario) {
+           this.nombreUsuario = nombreUsuario;
+           lbl_usuario.setText("Bienvenido/a " + nombreUsuario);
+    }
+    
+    public void setRutUsuario(String rutUsuario){
+        this.rutUsuario = rutUsuario;
     }
         private int filaSeleccionada = -1;
     /**
@@ -59,6 +92,8 @@ public class AgendaHoraSec extends javax.swing.JFrame {
         jScrollPane1 = new javax.swing.JScrollPane();
         modelo = new javax.swing.JTable();
         btn_actualizar = new javax.swing.JButton();
+        lbl_usuario = new javax.swing.JLabel();
+        btn_cerrar_sesion = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -203,6 +238,15 @@ public class AgendaHoraSec extends javax.swing.JFrame {
             }
         });
 
+        lbl_usuario.setForeground(new java.awt.Color(0, 0, 0));
+
+        btn_cerrar_sesion.setText("Cerrar Sesion");
+        btn_cerrar_sesion.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_cerrar_sesionActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -210,9 +254,6 @@ public class AgendaHoraSec extends javax.swing.JFrame {
             .addComponent(jLayeredPane1)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(32, 32, 32)
-                        .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 433, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(6, 6, 6)
                         .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 1402, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -249,12 +290,23 @@ public class AgendaHoraSec extends javax.swing.JFrame {
                         .addGap(103, 103, 103)
                         .addComponent(jCalendar1, javax.swing.GroupLayout.PREFERRED_SIZE, 473, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(29, Short.MAX_VALUE))
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGap(32, 32, 32)
+                .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 433, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(lbl_usuario, javax.swing.GroupLayout.PREFERRED_SIZE, 257, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(66, 66, 66)
+                .addComponent(btn_cerrar_sesion, javax.swing.GroupLayout.PREFERRED_SIZE, 121, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(67, 67, 67))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(6, 6, 6)
-                .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(lbl_usuario, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btn_cerrar_sesion))
                 .addGap(26, 26, 26)
                 .addComponent(jLayeredPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
@@ -360,7 +412,7 @@ public class AgendaHoraSec extends javax.swing.JFrame {
         BD bd = new BD();
         try {
             // Conectar a la base de datos
-            bd.conectar();
+            bd.agendaMedica();
 
             // Obtener los nombres de los médicos para la especialidad seleccionada
             List<String> nombresCompletosMedicos = bd.obtenerMedicos(especialidadSeleccionada);
@@ -420,6 +472,7 @@ public class AgendaHoraSec extends javax.swing.JFrame {
     private void btn_actualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_actualizarActionPerformed
         BD con = new BD();
         try {
+            
             con.actualizarCitas(modelo);
         } catch (SQLException ex) {
             Logger.getLogger(AgendaHoraSec.class.getName()).log(Level.SEVERE, null, ex);
@@ -475,6 +528,12 @@ public class AgendaHoraSec extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_modeloComponentShown
 
+    private void btn_cerrar_sesionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_cerrar_sesionActionPerformed
+        Principal pr = new Principal();
+        this.setVisible(false);
+        pr.setVisible(true);
+    }//GEN-LAST:event_btn_cerrar_sesionActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -514,6 +573,7 @@ public class AgendaHoraSec extends javax.swing.JFrame {
     private javax.swing.JButton btn_actualizar;
     private javax.swing.JButton btn_agendar;
     private javax.swing.JButton btn_back;
+    private javax.swing.JButton btn_cerrar_sesion;
     private javax.swing.JButton btn_eliminar;
     private javax.swing.JButton btn_modificar;
     private javax.swing.JComboBox<String> cbox_especialidad;
@@ -528,6 +588,7 @@ public class AgendaHoraSec extends javax.swing.JFrame {
     private javax.swing.JLayeredPane jLayeredPane1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JLabel lbl_usuario;
     private javax.swing.JTable modelo;
     private javax.swing.JTextField txt_fechaAgenda;
     private javax.swing.JTextField txt_rutPaciente;

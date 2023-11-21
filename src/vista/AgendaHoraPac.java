@@ -7,6 +7,7 @@ package vista;
 import controlador.Agenda;
 import java.sql.SQLException;
 import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 import java.util.Random;
 import java.util.logging.Level;
@@ -26,12 +27,15 @@ public class AgendaHoraPac extends javax.swing.JFrame {
         initComponents();
         this.setLocationRelativeTo(null);  
         this.setResizable(false);
+        
+        PacienteView pac = PacienteView.getInstanciaActual();
+        String rutUsuario = pac.getRutUsuario();
+        txt_rutPaciente.setText(rutUsuario);
     }
     
     private int filaSeleccionada = -1;
 
     
-
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -111,8 +115,20 @@ public class AgendaHoraPac extends javax.swing.JFrame {
 
             }
         ));
+        modelo.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                modeloMouseClicked(evt);
+            }
+        });
+        modelo.addComponentListener(new java.awt.event.ComponentAdapter() {
+            public void componentShown(java.awt.event.ComponentEvent evt) {
+                modeloComponentShown(evt);
+            }
+        });
         jScrollPane1.setViewportView(modelo);
 
+        jButton1.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        jButton1.setForeground(new java.awt.Color(0, 0, 0));
         jButton1.setText("Citas");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -125,12 +141,15 @@ public class AgendaHoraPac extends javax.swing.JFrame {
         jLabel4.setText("Rut Paciente:");
 
         txt_rutPaciente.setEditable(false);
+        txt_rutPaciente.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        txt_rutPaciente.setForeground(new java.awt.Color(0, 0, 0));
 
         jLabel2.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         jLabel2.setForeground(new java.awt.Color(0, 0, 0));
         jLabel2.setText("Especialidad:");
 
         cbox_especialidad.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        cbox_especialidad.setForeground(new java.awt.Color(0, 0, 0));
         cbox_especialidad.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Seleccione una especialidad", "Kinesiologo", "Traumatologo", "General" }));
         cbox_especialidad.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -143,6 +162,7 @@ public class AgendaHoraPac extends javax.swing.JFrame {
         jLabel3.setText("Medico:");
 
         cbox_medico.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        cbox_medico.setForeground(new java.awt.Color(0, 0, 0));
         cbox_medico.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 cbox_medicoActionPerformed(evt);
@@ -154,8 +174,10 @@ public class AgendaHoraPac extends javax.swing.JFrame {
         jLabel5.setText("Fecha:");
 
         txt_fechaAgenda.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        txt_fechaAgenda.setForeground(new java.awt.Color(0, 0, 0));
 
         btn_agendar.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        btn_agendar.setForeground(new java.awt.Color(0, 0, 0));
         btn_agendar.setText("Agendar");
         btn_agendar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -164,6 +186,7 @@ public class AgendaHoraPac extends javax.swing.JFrame {
         });
 
         btn_eliminar.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        btn_eliminar.setForeground(new java.awt.Color(0, 0, 0));
         btn_eliminar.setText("Eliminar");
         btn_eliminar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -172,6 +195,7 @@ public class AgendaHoraPac extends javax.swing.JFrame {
         });
 
         btn_modificar.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        btn_modificar.setForeground(new java.awt.Color(0, 0, 0));
         btn_modificar.setText("Modificar");
         btn_modificar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -180,6 +204,7 @@ public class AgendaHoraPac extends javax.swing.JFrame {
         });
 
         btn_back.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        btn_back.setForeground(new java.awt.Color(0, 0, 0));
         btn_back.setText("Atras");
         btn_back.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -242,13 +267,13 @@ public class AgendaHoraPac extends javax.swing.JFrame {
                 .addComponent(lbl_usuario, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(30, 30, 30)
                 .addComponent(jLayeredPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 152, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(18, 18, 18)
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 167, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addGap(50, 50, 50)
+                                .addGap(35, 35, 35)
                                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                                     .addComponent(txt_rutPaciente, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(jLabel4))
@@ -265,9 +290,9 @@ public class AgendaHoraPac extends javax.swing.JFrame {
                                     .addComponent(txt_fechaAgenda, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(jLabel5)))
                             .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addGap(52, 52, 52)
+                                .addGap(37, 37, 37)
                                 .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addGap(69, 69, 69)
+                        .addGap(87, 87, 87)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(btn_agendar, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(btn_eliminar, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -275,7 +300,7 @@ public class AgendaHoraPac extends javax.swing.JFrame {
                                 .addComponent(btn_modificar, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addComponent(btn_back, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))))
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(50, 50, 50)
+                        .addGap(220, 220, 220)
                         .addComponent(jCalendar1, javax.swing.GroupLayout.PREFERRED_SIZE, 315, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(92, Short.MAX_VALUE))
         );
@@ -302,7 +327,7 @@ public class AgendaHoraPac extends javax.swing.JFrame {
         BD bd = new BD();
         try {
             // Conectar a la base de datos
-            bd.conectar();
+            bd.agendaMedica();
 
             // Obtener los nombres de los médicos para la especialidad seleccionada
             List<String> nombresCompletosMedicos = bd.obtenerMedicos(especialidadSeleccionada);
@@ -326,11 +351,16 @@ public class AgendaHoraPac extends javax.swing.JFrame {
     private void btn_agendarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_agendarActionPerformed
         BD bd = new BD();
         Agenda a = new Agenda();
+
         
-        String rut = "8.148.297-8";
+        String rut = txt_rutPaciente.getText();
         String nombreMed = cbox_medico.getSelectedItem().toString();
         String especialidad = cbox_especialidad.getSelectedItem().toString();
         String fecha = txt_fechaAgenda.getText();
+        Date fechaSeleccionada = jCalendar1.getCalendar().getTime();
+        SimpleDateFormat formatoDeseado = new SimpleDateFormat("yyyy-MM-dd");
+        String fechaAgenda = formatoDeseado.format(fechaSeleccionada);
+
         String status = "agendado";
         int numeroAleatorio = new Random().nextInt(8001) + 3000;
         int valorConsulta = (int) (Math.round(numeroAleatorio / 10.0) * 10);
@@ -339,12 +369,12 @@ public class AgendaHoraPac extends javax.swing.JFrame {
             a.setRutPaciente(rut);
             a.setNombreMed(nombreMed);
             a.setEspecialidad(especialidad);
-            a.setFecha(fecha);
+            a.setFecha(fechaAgenda);
             a.setStatus(status);
             a.setValorConsulta(valorConsulta);
             bd.agendaMedica();
             bd.agendarCita(a);
-            bd.actualizarCitas(modelo);
+            bd.actualizarCitasPaciente(modelo,rut);
 
          
             cbox_especialidad.setSelectedIndex(-1);
@@ -431,7 +461,8 @@ public class AgendaHoraPac extends javax.swing.JFrame {
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
             BD con = new BD();
             try {
-                con.actualizarCitas(modelo);
+                String rutPaciente = txt_rutPaciente.getText();
+                con.actualizarCitasPaciente(modelo, rutPaciente);
             } 
             catch (SQLException ex) {
                 Logger.getLogger(AgendaHoraSec.class.getName()).log(Level.SEVERE, null, ex);
@@ -444,6 +475,19 @@ public class AgendaHoraPac extends javax.swing.JFrame {
                 txt_fechaAgenda.setText(ff.format(jCalendar1.getCalendar().getTime()));
             }
     }//GEN-LAST:event_jCalendar1PropertyChange
+
+    private void modeloComponentShown(java.awt.event.ComponentEvent evt) {//GEN-FIRST:event_modeloComponentShown
+        BD con = new BD();
+        try {
+            con.actualizarCitas(modelo);
+        } catch (SQLException ex) {
+            Logger.getLogger(AgendaHoraSec.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_modeloComponentShown
+
+    private void modeloMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_modeloMouseClicked
+        filaSeleccionada = modelo.rowAtPoint(evt.getPoint());
+    }//GEN-LAST:event_modeloMouseClicked
 
     /**
      * @param args the command line arguments

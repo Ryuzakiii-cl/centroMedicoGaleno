@@ -277,7 +277,7 @@ public class Principal extends javax.swing.JFrame {
             
         } else {
             try {
-                bd.conectar();
+                bd.agendaMedica();
                 BD.iniciarSesion(user, pass);
                 this.setVisible(false);
             } catch (Exception e) {

@@ -9,7 +9,7 @@ package vista;
  * @author Criiiis
  */
 public class PacienteView extends javax.swing.JFrame {
-
+    private static PacienteView instanciaActual;
     /**
      * Creates new form PacienteView
      */
@@ -17,12 +17,29 @@ public class PacienteView extends javax.swing.JFrame {
         initComponents();
         this.setLocationRelativeTo(null);
         this.setResizable(false);
+        instanciaActual = this;
     }
         private String nombreUsuario;
-    
+        private String rutUsuario;
+        
+            public static PacienteView getInstanciaActual() {
+        return instanciaActual;
+    }
+        
     public void setNombreUsuario(String nombreUsuario) {
             this.nombreUsuario = nombreUsuario;
             jlabel_usuario.setText("Bienvenido/a " + nombreUsuario);
+    }
+    public void setRutUsuario(String rutUsuario) {
+            this.rutUsuario = rutUsuario;
+    }
+
+    public String getNombreUsuario() {
+        return this.nombreUsuario;
+    }
+
+    public String getRutUsuario() {
+        return rutUsuario;
     }
     
     /**
@@ -228,4 +245,6 @@ public class PacienteView extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel1;
     private javax.swing.JLabel jlabel_usuario;
     // End of variables declaration//GEN-END:variables
+
+
 }

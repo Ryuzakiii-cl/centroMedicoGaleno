@@ -7,8 +7,6 @@ package vista;
 import controlador.Usuarios;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import java.util.HashSet;
-import modelo.BD;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import modelo.BD;
@@ -386,7 +384,7 @@ public class Registro extends javax.swing.JFrame {
                 u.setCorreo(correo);
                 u.setRol(rol);
                 u.setEspecialidad(especialidad);
-                bd.conectar();
+                bd.agendaMedica();
                 bd.registrar(u);
                 
                 
@@ -435,7 +433,7 @@ public class Registro extends javax.swing.JFrame {
             
         } else {
             try {
-                bd.conectar();
+                bd.agendaMedica();
                 BD.iniciarSesion(user, pass);
                 this.setVisible(false);
             } catch (Exception e) {
