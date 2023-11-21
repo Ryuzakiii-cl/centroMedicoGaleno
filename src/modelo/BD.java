@@ -2,8 +2,11 @@
 package modelo;
 
 import controlador.*;
+import java.awt.Desktop;
+import java.io.File;
 import java.io.IOException;
 import java.sql.*;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import javax.swing.JOptionPane;
@@ -55,12 +58,13 @@ import org.apache.pdfbox.pdmodel.font.PDType1Font;
             public static void iniciarSesion(String rut, String contrasena) {
                    String rol = "";
                    String nombreUsuario = "";
+                   String rutUsuario = "";
                    String url = "jdbc:mysql://localhost:3306/usuarios_galeno";
                    String user = "root";
                    String password = "";
 
                    try (Connection conn  = DriverManager.getConnection(url, user, password)) {
-                       String query = "SELECT rol, nombre FROM usuarios WHERE rut = ? AND rut = ?";
+                       String query = "SELECT rol, nombre, rut FROM usuarios WHERE rut = ? AND rut = ?";
                        PreparedStatement stmt = conn.prepareStatement(query);
                        stmt.setString(1, rut);
                        stmt.setString(2, rut);
@@ -69,6 +73,7 @@ import org.apache.pdfbox.pdmodel.font.PDType1Font;
                        if (rs.next()) {
                            rol = rs.getString("rol");
                            nombreUsuario = rs.getString("nombre");
+                           rutUsuario = rs.getString("rut");
 
                        } else {
                            JOptionPane.showMessageDialog(null, "No se encuentra usuario registrado");
@@ -83,9 +88,10 @@ import org.apache.pdfbox.pdmodel.font.PDType1Font;
                  // ...
 
             switch (rol) {
-                case "Paciente":
+                case "paciente":
                     PacienteView p = new PacienteView();
                     p.setNombreUsuario(nombreUsuario);
+                    
                     p.setVisible(true);
                     break;
                 case "Medico":
@@ -95,7 +101,7 @@ import org.apache.pdfbox.pdmodel.font.PDType1Font;
                     break;
                 case "Secretaria":
                     SecretariaView s = new SecretariaView();
-                    s.setNombreUsuario(nombreUsuario);
+                    s.setNombreUsuario(nombreUsuario);                 
                     s.setVisible(true);
                     break;
                 case "administrador":
@@ -318,7 +324,62 @@ import org.apache.pdfbox.pdmodel.font.PDType1Font;
                 }//FIN METODO MOSTRAR DATOS
             
             
+            public ResultSet obtenerFiltroMedico() throws SQLException {
+                
+                LocalDate fechaActual = LocalDate.now();
+                DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+                String fechaHoyString = fechaActual.format(formatter);
+                String consulta = "SELECT u.nombre, u.apellido, u.rut, a.status, a.fecha FROM usuarios_galeno u "
+                                + "JOIN agenda_medica a ON u.rut = a.rutPaciente "
+                                + "WHERE a.fecha = ?" +"AND a.status = 'agendado'";
+
+
+                PreparedStatement preparedStatement = conexion.prepareStatement(consulta);
+                preparedStatement.setString(1, fechaHoyString);
+
+                return preparedStatement.executeQuery();
+            }
+
+            public void informeFiltradoMedico(JTable tabla) throws SQLException {
+                agendaMedica();
+                DefaultTableModel modelo2 = new DefaultTableModel();
+                modelo2.addColumn("Nombre");
+                modelo2.addColumn("Apellido");
+                modelo2.addColumn("Estado");
+
+                ResultSet resultSet = obtenerFiltroMedico();
+
+                while (resultSet.next()) {
+                    Object[] fila = new Object[3]; // 3 es el número de columnas en la tabla
+
+                    fila[0] = resultSet.getString("nombre");
+                    fila[1] = resultSet.getString("apellido");
+                    fila[2] = resultSet.getString("status");
+
+                    modelo2.addRow(fila);
+                }
+
+                tabla.setModel(modelo2);
+                resultSet.close();
+                desconectar();
+            }//FIN METODO MOSTRAR DATOS
             
+            
+            
+            public void editarCitaMedico(String nombre, String apellido) throws SQLException {
+                agendaMedica();
+                String consulta = "UPDATE agenda_medica a " +
+                                  "JOIN usuarios_galeno u ON u.rut = a.rutPaciente " +
+                                  "SET a.status = 'atendido' " +
+                                  "WHERE u.nombre = ? AND u.apellido = ? AND a.status = 'agendado'";
+
+                PreparedStatement preparedStatement = conexion.prepareStatement(consulta);
+                preparedStatement.setString(1, nombre);
+                preparedStatement.setString(2, apellido);
+                preparedStatement.executeUpdate();
+            }   
+            
+
             
             public void generarInformePDF(JTable tabla, int totalRecaudado) {
                 try {
@@ -433,6 +494,14 @@ import org.apache.pdfbox.pdmodel.font.PDType1Font;
                             document.save(filePath);
                             document.close();
                             JOptionPane.showMessageDialog(null, "Informe PDF generado exitosamente.");
+                            try {
+                                File file = new File(filePath);
+                                Desktop.getDesktop().open(file);
+                            } catch (IOException e) {
+                                e.printStackTrace();
+                                JOptionPane.showMessageDialog(null, "Error al abrir el archivo PDF.");
+                                System.out.println(e);
+                            }
 
                         } catch (IOException e) {
                             e.printStackTrace();

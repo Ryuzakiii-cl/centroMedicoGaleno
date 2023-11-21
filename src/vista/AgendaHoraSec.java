@@ -8,10 +8,10 @@ import controlador.Agenda;
 import java.sql.SQLException;
 import java.text.SimpleDateFormat;
 import java.util.List;
+import java.util.Random;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
-import javax.swing.SwingUtilities;
 import modelo.BD;
 
 /**
@@ -26,6 +26,7 @@ public class AgendaHoraSec extends javax.swing.JFrame {
     public AgendaHoraSec() {
         initComponents();
         this.setLocationRelativeTo(null);  
+        this.setResizable(false);
         
     }
         private int filaSeleccionada = -1;
@@ -247,7 +248,7 @@ public class AgendaHoraSec extends javax.swing.JFrame {
                                     .addComponent(txt_fechaAgenda, javax.swing.GroupLayout.PREFERRED_SIZE, 275, javax.swing.GroupLayout.PREFERRED_SIZE))))
                         .addGap(103, 103, 103)
                         .addComponent(jCalendar1, javax.swing.GroupLayout.PREFERRED_SIZE, 473, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(23, Short.MAX_VALUE))
+                .addContainerGap(29, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -295,11 +296,11 @@ public class AgendaHoraSec extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 1431, Short.MAX_VALUE)
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 1437, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 788, Short.MAX_VALUE)
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
         pack();
@@ -321,7 +322,8 @@ public class AgendaHoraSec extends javax.swing.JFrame {
         String especialidad = cbox_especialidad.getSelectedItem().toString();
         String fecha = txt_fechaAgenda.getText();
         String status = "agendado";
-        int valorConsulta = 4180;
+        int numeroAleatorio = new Random().nextInt(8001) + 3000;
+        int valorConsulta = (int) (Math.round(numeroAleatorio / 10.0) * 10);
         
         try {
             a.setRutPaciente(rutPaciente);
@@ -416,7 +418,7 @@ public class AgendaHoraSec extends javax.swing.JFrame {
     }//GEN-LAST:event_btn_eliminarActionPerformed
 
     private void btn_actualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_actualizarActionPerformed
-                BD con = new BD();
+        BD con = new BD();
         try {
             con.actualizarCitas(modelo);
         } catch (SQLException ex) {
@@ -465,7 +467,7 @@ public class AgendaHoraSec extends javax.swing.JFrame {
     }//GEN-LAST:event_modeloMouseClicked
 
     private void modeloComponentShown(java.awt.event.ComponentEvent evt) {//GEN-FIRST:event_modeloComponentShown
-                        BD con = new BD();
+        BD con = new BD();
         try {
             con.actualizarCitas(modelo);
         } catch (SQLException ex) {
