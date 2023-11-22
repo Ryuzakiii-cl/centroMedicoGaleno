@@ -7,6 +7,7 @@ package controlador;
 public class Agenda {
     private String rutPaciente;
     private String nombreMed;
+    private String rutMed;
     private String especialidad;
     private String fecha;
     private String status;
@@ -15,9 +16,10 @@ public class Agenda {
     public Agenda() {
     }
 
-    public Agenda(String rutPaciente, String nombreMed, String especialidad, String fecha, String status, int valorConsulta) {
+    public Agenda(String rutPaciente, String nombreMed, String rutMed, String especialidad, String fecha, String status, int valorConsulta) {
         this.rutPaciente = rutPaciente;
         this.nombreMed = nombreMed;
+        this.rutMed = rutMed;
         this.especialidad = especialidad;
         this.fecha = fecha;
         this.status = status;
@@ -38,6 +40,14 @@ public class Agenda {
 
     public void setNombreMed(String nombreMed) {
         this.nombreMed = nombreMed;
+    }
+
+    public String getRutMed() {
+        return rutMed;
+    }
+
+    public void setRutMed(String rutMed) {
+        this.rutMed = rutMed;
     }
 
     public String getEspecialidad() {
@@ -74,9 +84,10 @@ public class Agenda {
 
     @Override
     public String toString() {
-        return "Agenda{" + "rutPaciente=" + rutPaciente + ", nombreMed=" + nombreMed + ", especialidad=" + especialidad + ", fecha=" + fecha + ", status=" + status + ", valorConsulta=" + valorConsulta + '}';
+        return "Agenda{" + "rutPaciente=" + rutPaciente + ", nombreMed=" + nombreMed + ", rutMed=" + rutMed + ", especialidad=" + especialidad + ", fecha=" + fecha + ", status=" + status + ", valorConsulta=" + valorConsulta + '}';
     }
 
+   
     
     
 

@@ -51,13 +51,14 @@ import org.apache.pdfbox.pdmodel.font.PDType1Font;
             public static void iniciarSesion(String rut, String contrasena) {
                    String rol = "";
                    String nombreUsuario = "";
+                   String apellidoUsuario = "";
                    String rutUsuario = "";
                    String url = "jdbc:mysql://localhost:3306/agenda";
                    String user = "root";
                    String password = "";
 
                    try (Connection conn  = DriverManager.getConnection(url, user, password)) {
-                       String query = "SELECT rol, nombre, rut FROM usuarios_galeno WHERE rut = ? AND rut = ?";
+                       String query = "SELECT rol, nombre, apellido, rut FROM usuarios_galeno WHERE rut = ? AND rut = ?";
                        PreparedStatement stmt = conn.prepareStatement(query);
                        stmt.setString(1, rut);
                        stmt.setString(2, rut);
@@ -66,6 +67,7 @@ import org.apache.pdfbox.pdmodel.font.PDType1Font;
                        if (rs.next()) {
                            rol = rs.getString("rol");
                            nombreUsuario = rs.getString("nombre");
+                           apellidoUsuario = rs.getString("apellido");
                            rutUsuario = rs.getString("rut");
                        } else {
                            JOptionPane.showMessageDialog(null, "No se encuentra usuario registrado");
@@ -89,6 +91,7 @@ import org.apache.pdfbox.pdmodel.font.PDType1Font;
                 case "Medico":
                     MedicoView m = new MedicoView();
                     m.setNombreUsuario(nombreUsuario);
+                    m.setApellidoUsuario(apellidoUsuario);
                     m.setRutUsuario(rutUsuario);
                     m.setVisible(true);
                     break;
@@ -117,7 +120,7 @@ import org.apache.pdfbox.pdmodel.font.PDType1Font;
             //CREATE
             public boolean agendarCita(Agenda agenda){
             try {
-            String SQL = "INSERT INTO agenda_medica(rutPaciente, nombreMed, especialidad, fecha, status, valorConsulta) VALUES ('"+agenda.getRutPaciente()+"','"+agenda.getNombreMed()+"','"+agenda.getEspecialidad()+"','"+agenda.getFecha()+"','"+agenda.getStatus()+"','"+agenda.getValorConsulta()+"')";
+            String SQL = "INSERT INTO agenda_medica(rutPaciente, nombreMed, rutMed, especialidad, fecha, status, valorConsulta) VALUES ('"+agenda.getRutPaciente()+"','"+agenda.getNombreMed()+"','"+agenda.getRutMed()+"','"+agenda.getEspecialidad()+"','"+agenda.getFecha()+"','"+agenda.getStatus()+"','"+agenda.getValorConsulta()+"')";
             System.out.println("Sentencia SQL: " + SQL);
 
             Statement s = conexion.createStatement();
@@ -203,7 +206,7 @@ import org.apache.pdfbox.pdmodel.font.PDType1Font;
 
             public boolean registrar(Usuarios usuarios ){
                 try {
-                String SQL = "INSERT INTO usuarios(nombre,apellido,rut,direccion,telefono,correo,rol,especialidad)values('"+usuarios.getNombre()+"','"+usuarios.getApellido()+"','"+usuarios.getRut()+"','"+usuarios.getDireccion()+"','"+usuarios.getTelefono()+"','"+usuarios.getCorreo()+"','"+usuarios.getRol()+"','"+usuarios.getEspecialidad()+"')";
+                String SQL = "INSERT INTO usuarios_galeno(nombre,apellido,rut,direccion,telefono,correo,rol,especialidad)values('"+usuarios.getNombre()+"','"+usuarios.getApellido()+"','"+usuarios.getRut()+"','"+usuarios.getDireccion()+"','"+usuarios.getTelefono()+"','"+usuarios.getCorreo()+"','"+usuarios.getRol()+"','"+usuarios.getEspecialidad()+"')";
                 Statement s = conexion.createStatement();
                 s.executeUpdate( SQL );
                 s.close();
@@ -331,16 +334,20 @@ import org.apache.pdfbox.pdmodel.font.PDType1Font;
                 DefaultTableModel modelo2 = new DefaultTableModel();
                 modelo2.addColumn("Nombre");
                 modelo2.addColumn("Apellido");
+                modelo2.addColumn("Rut");
+                modelo2.addColumn("Fecha");
                 modelo2.addColumn("Estado");
 
                 ResultSet resultSet = obtenerFiltroMedico();
 
                 while (resultSet.next()) {
-                    Object[] fila = new Object[3]; // 3 es el número de columnas en la tabla
+                    Object[] fila = new Object[5]; // 3 es el número de columnas en la tabla
 
                     fila[0] = resultSet.getString("nombre");
                     fila[1] = resultSet.getString("apellido");
-                    fila[2] = resultSet.getString("status");
+                    fila[2] = resultSet.getString("rut");
+                    fila[3] =resultSet.getString("fecha");
+                    fila[4] = resultSet.getString("status");
 
                     modelo2.addRow(fila);
                 }
@@ -395,6 +402,58 @@ import org.apache.pdfbox.pdmodel.font.PDType1Font;
                 tabla.setModel(modelo);
                 resultSet.close();
                 statement.close();
+                desconectar();
+            }//FIN METODO MOSTRAR DATOS
+            
+            
+            
+            
+            
+            public ResultSet obtenerFiltroInformeMedico(String nombreMed, String rutMed, String fechaDesde,String fechaHasta) throws SQLException {
+                
+                String consulta = "SELECT nombreMed, rutMed, fecha, valorConsulta FROM agenda_medica WHERE rutMed = ?";
+
+            if (fechaDesde != null) {
+                consulta += " AND a.fecha >= ?";
+            }
+
+            if (fechaHasta != null) {
+                consulta += " AND a.fecha <= ?";
+            }
+
+                PreparedStatement preparedStatement = conexion.prepareStatement(consulta);
+                preparedStatement.setString(1, rutMed);
+                   System.out.println("aa: " + rutMed);
+                if (fechaDesde != null && fechaHasta != null) {
+                    preparedStatement.setString(2, fechaDesde);
+                    preparedStatement.setString(3, fechaHasta);
+                }
+                    return preparedStatement.executeQuery();
+            }
+
+            public void informeFiltradoInformeMedico(JTable tabla, String nombreMed,String rutMed, String fechaDesde, String fechaHasta) throws SQLException {
+                agendaMedica();
+                DefaultTableModel modelo2 = new DefaultTableModel();
+                modelo2.addColumn("Nombre Medico");
+                modelo2.addColumn("Rut Medico");
+                modelo2.addColumn("Fecha");
+                modelo2.addColumn("Monto Recaudado");
+
+                ResultSet resultSet = obtenerFiltroInformeMedico(nombreMed, rutMed, fechaDesde, fechaHasta);
+
+                while (resultSet.next()) {
+                    Object[] fila = new Object[4];
+
+                    fila[0] = resultSet.getString("nombreMed");
+                    fila[1] = resultSet.getString("rutMed");
+                    fila[2] = resultSet.getString("fecha");
+                    fila[3] = resultSet.getInt("valorConsulta");
+
+                    modelo2.addRow(fila);
+                }
+
+                tabla.setModel(modelo2);
+                resultSet.close();
                 desconectar();
             }//FIN METODO MOSTRAR DATOS
             

@@ -22,8 +22,8 @@ public class PacienteView extends javax.swing.JFrame {
         private String nombreUsuario;
         private String rutUsuario;
         
-            public static PacienteView getInstanciaActual() {
-        return instanciaActual;
+    public static PacienteView getInstanciaActual() {
+            return instanciaActual;
     }
         
     public void setNombreUsuario(String nombreUsuario) {
@@ -35,11 +35,11 @@ public class PacienteView extends javax.swing.JFrame {
     }
 
     public String getNombreUsuario() {
-        return this.nombreUsuario;
+            return this.nombreUsuario;
     }
 
     public String getRutUsuario() {
-        return rutUsuario;
+            return rutUsuario;
     }
     
     /**
