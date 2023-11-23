@@ -5,7 +5,9 @@
 package vista;
 import controlador.Agenda;
 import java.sql.SQLException;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 import java.util.Random;
 import java.util.logging.Level;
@@ -454,8 +456,8 @@ public class AgendaHoraSec extends javax.swing.JFrame {
     private void btn_actualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_actualizarActionPerformed
         BD con = new BD();
         try {
-            
-            con.actualizarCitas(modelo);
+            String rut = txt_rutPaciente.getText();
+            con.actualizarCitas2(modelo,rut);
         } catch (SQLException ex) {
             Logger.getLogger(AgendaHoraSec.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -467,35 +469,43 @@ public class AgendaHoraSec extends javax.swing.JFrame {
         int confirmacion = JOptionPane.showConfirmDialog(null, "¿Confirma modificacion de la cita?", "Confirmar Modificación", JOptionPane.YES_NO_OPTION);
 
         if (confirmacion == JOptionPane.YES_OPTION) {
-            String fecha = txt_fechaAgenda.getText();
-            String rut = modelo.getValueAt(filaSeleccionada, 0).toString();
-            String nombreMed = modelo.getValueAt(filaSeleccionada, 1).toString();
-            String especialidad = modelo.getValueAt(filaSeleccionada, 2).toString(); 
-            String fecha2 = modelo.getValueAt(filaSeleccionada, 3).toString();
-
-            BD bd = new BD();
-            String rutMed = null;
                 try {
-                    rutMed = bd.obtenerRutMedico(nombreMed);
-                } catch (SQLException ex) {
-                    Logger.getLogger(AgendaHoraPac.class.getName()).log(Level.SEVERE, null, ex);
+                    String fecha = txt_fechaAgenda.getText();
+                    SimpleDateFormat formatoEntrada = new SimpleDateFormat("dd/MM/yyyy");
+                    SimpleDateFormat formatoSalida = new SimpleDateFormat("yyyy-MM-dd");
+                    Date fechaParseada = formatoEntrada.parse(fecha);
+                    String fechaSalida = formatoSalida.format(fechaParseada);
+                    String rut = modelo.getValueAt(filaSeleccionada, 0).toString();
+                    String nombreMed = modelo.getValueAt(filaSeleccionada, 1).toString();
+                    String especialidad = modelo.getValueAt(filaSeleccionada, 2).toString();
+                    String fecha2 = modelo.getValueAt(filaSeleccionada, 3).toString();
+                    
+                    BD bd = new BD();
+                    String rutMed = null;
+                    try {
+                        rutMed = bd.obtenerRutMedico(nombreMed);
+                    } catch (SQLException ex) {
+                        Logger.getLogger(AgendaHoraPac.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+                    
+                    try {
+                        bd.editarCita(nombreMed,rutMed, especialidad, fechaSalida,rut, fecha2);
+                        bd.actualizarCitas2(modelo,rut);
+                        txt_rutPaciente.setText("");
+                        cbox_especialidad.setSelectedIndex(-1);
+                        cbox_medico.setSelectedIndex(-1);
+                        txt_fechaAgenda.setText("");
+                        JOptionPane.showMessageDialog(null, "Cita modificada correctamente");
+                    } catch (SQLException ex) {
+                        ex.printStackTrace();
+                        JOptionPane.showMessageDialog(null, "Error al cancelar la cita");
+                    }
+                    
+                    // Restablecer la variable de fila seleccionada después de la cancelación
+                    filaSeleccionada = -1;
+                } catch (ParseException ex) {
+                    Logger.getLogger(AgendaHoraSec.class.getName()).log(Level.SEVERE, null, ex);
                 }
-
-            try {
-                bd.editarCita(nombreMed,rutMed, especialidad, fecha,rut, fecha2);
-                bd.actualizarCitas(modelo);
-                txt_rutPaciente.setText("");
-                cbox_especialidad.setSelectedIndex(-1);
-                cbox_medico.setSelectedIndex(-1);
-                txt_fechaAgenda.setText("");
-                JOptionPane.showMessageDialog(null, "Cita cancelada correctamente");
-            } catch (SQLException ex) {
-                ex.printStackTrace();
-                JOptionPane.showMessageDialog(null, "Error al cancelar la cita");
-            }
-            
-            // Restablecer la variable de fila seleccionada después de la cancelación
-            filaSeleccionada = -1;
         }
     } else {
         JOptionPane.showMessageDialog(null, "Por favor, seleccione una cita para cancelar");

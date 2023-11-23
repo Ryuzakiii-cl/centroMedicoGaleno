@@ -436,11 +436,8 @@ private BD bd = new BD();  // Crear una única instancia de BD
                     String fecha = txt_fechaAgenda.getText();
                     SimpleDateFormat formatoEntrada = new SimpleDateFormat("dd/MM/yyyy");
                     SimpleDateFormat formatoSalida = new SimpleDateFormat("yyyy-MM-dd");
-                    
                     Date fechaParseada = formatoEntrada.parse(fecha);
-
                     String fechaSalida = formatoSalida.format(fechaParseada);
-                    
                     String rut = modelo.getValueAt(filaSeleccionada, 0).toString();
                     String nombreMed = modelo.getValueAt(filaSeleccionada, 1).toString();
                     String especialidad = modelo.getValueAt(filaSeleccionada, 2).toString();

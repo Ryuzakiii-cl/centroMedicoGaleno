@@ -173,6 +173,43 @@ import org.apache.pdfbox.pdmodel.font.PDType1Font;
                 desconectar();
             }//FIN METODO MOSTRAR DATOS
             
+            public void actualizarCitas2(JTable tabla, String rutPaciente) throws SQLException {
+                agendaMedica();
+                DefaultTableModel modelo = new DefaultTableModel();
+                modelo.addColumn("Rut Paciente");
+                modelo.addColumn("Nombre Medico");
+                modelo.addColumn("Especialidad");
+                modelo.addColumn("Fecha");
+                modelo.addColumn("Estado");
+
+                String consulta = "SELECT rutPaciente, nombreMed, especialidad, fecha, status FROM agenda_medica ";
+                if (!rutPaciente.isEmpty()) {
+                    consulta += " WHERE rutPaciente = ?";
+                }
+                PreparedStatement statement = conexion.prepareStatement(consulta);
+                if (!rutPaciente.isEmpty()) {
+                    statement.setString(1, rutPaciente);
+                }
+                
+                ResultSet resultSet = statement.executeQuery();
+
+                while (resultSet.next()) {
+                    Object[] fila = new Object[6]; // 7 es el número de columnas en la tabla
+
+                    fila[0] = resultSet.getString("rutPaciente");
+                    fila[1] = resultSet.getString("nombreMed");
+                    fila[2] = resultSet.getString("especialidad");
+                    fila[3] = resultSet.getString("fecha");
+                    fila[4] = resultSet.getString("status");
+
+                    modelo.addRow(fila);
+                }
+                tabla.setModel(modelo);
+                resultSet.close();
+                statement.close();
+                desconectar();
+            }//FIN METODO MOSTRAR DATOS
+            
             //UPDATE
             public void editarCita(String nombremed, String rutMed,String especialidad, String fecha, String rut, String fecha2) throws SQLException {
             agendaMedica();
