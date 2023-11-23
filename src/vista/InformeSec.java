@@ -301,8 +301,6 @@ public class InformeSec extends javax.swing.JFrame {
 
         String especialidad = cbox_especialidad.getSelectedItem() != null ? cbox_especialidad.getSelectedItem().toString() : "";
         String nombreMed = cbox_medico.getSelectedItem() != null ? cbox_medico.getSelectedItem().toString() : "";
-
-        // Obtener fecha desde el JDateChooser "jfecha_start"
         Date fechaDesdeDate = jfecha_start.getDate();
         String fechaDesdeString = null;
 
@@ -310,8 +308,6 @@ public class InformeSec extends javax.swing.JFrame {
             SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
             fechaDesdeString = sdf.format(fechaDesdeDate);
         }
-
-        // Obtener fecha desde el JDateChooser "jfecha_end"
         Date fechaHastaDate = jfecha_end.getDate();
         String fechaHastaString = null;
 

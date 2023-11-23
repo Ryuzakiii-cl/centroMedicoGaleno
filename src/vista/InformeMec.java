@@ -1,7 +1,10 @@
 package vista;
 
+import java.sql.SQLException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import modelo.BD;
 
 
@@ -269,7 +272,41 @@ public class InformeMec extends javax.swing.JFrame {
     }//GEN-LAST:event_btn_recaudarActionPerformed
 
     private void btn_filtrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_filtrarActionPerformed
-        // TODO add your handling code here:
+            BD con = new BD();
+            MedicoView med = MedicoView.getInstanciaActual();
+            String rutMed = med.getRutUsuario();
+            String nombreMed = med.getNombreUsuario();
+            Date fechaDesdeDate = jfecha_start.getDate();
+            String fechaDesdeString = null;
+
+            if (fechaDesdeDate != null) {
+                SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+                fechaDesdeString = sdf.format(fechaDesdeDate);
+            }
+            Date fechaHastaDate = jfecha_end.getDate();
+            String fechaHastaString = null;
+
+            if (fechaHastaDate != null) {
+                SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+                fechaHastaString = sdf.format(fechaHastaDate);
+            }
+            
+            try {
+            con.informeFiltradoInformeMedico(modelo2, nombreMed, rutMed, fechaDesdeString, fechaHastaString);
+            int numrow = modelo2.getRowCount();
+            int total = 0;
+            for (int i = 0; i < numrow; i++) {
+                int val = Integer.parseInt(modelo2.getValueAt(i, 2).toString());
+                total += val;
+            }
+            lbl_total.setText("$" + Integer.toString(total));
+        } catch (SQLException ex) {
+            Logger.getLogger(InformeSec.class.getName()).log(Level.SEVERE, null, ex);
+        }
+            
+            
+            
+            
     }//GEN-LAST:event_btn_filtrarActionPerformed
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed

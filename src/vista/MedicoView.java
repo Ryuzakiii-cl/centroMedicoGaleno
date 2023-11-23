@@ -21,8 +21,6 @@ public class MedicoView extends javax.swing.JFrame {
         String rutUsuario = pac.getRutUsuario();
         String nombreUsuario = pac.getNombreUsuario();
 
-        
-        
     }
 
          private int filaSeleccionada = -1;
@@ -255,7 +253,7 @@ public class MedicoView extends javax.swing.JFrame {
                     try {
                         bd.editarCitaMedico(nombre, apellido);
                         bd.informeFiltradoMedico(modelo2);
-                        JOptionPane.showMessageDialog(null, "Cita cancelada correctamente");
+                        JOptionPane.showMessageDialog(null, "Cita Terminada correctamente");
                     } catch (SQLException ex) {
                         ex.printStackTrace();
                         JOptionPane.showMessageDialog(null, "Error al cancelar la cita");

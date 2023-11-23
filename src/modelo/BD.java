@@ -104,7 +104,6 @@ import org.apache.pdfbox.pdmodel.font.PDType1Font;
                 case "administrador":
                     AdministradorView a = new AdministradorView();
                     a.setNombreUsuario(nombreUsuario);
-                    //a.setRutUsuario(rutUsuario);
                     a.setVisible(true);
                     break;
                 default:
@@ -469,7 +468,7 @@ public ResultSet obtenerFiltro(String especialidad, String nombreMed, String fec
             
             public ResultSet obtenerFiltroInformeMedico(String nombreMed, String rutMed, String fechaDesde,String fechaHasta) throws SQLException {
                 
-                String consulta = "SELECT nombreMed, rutMed, fecha, valorConsulta FROM agenda_medica WHERE rutMed = ?";
+                String consulta = "SELECT nombreMed, rutMed, fecha, valorConsulta FROM agenda_medica a WHERE rutMed = ?";
 
             if (fechaDesde != null) {
                 consulta += " AND a.fecha >= ?";
