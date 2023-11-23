@@ -125,7 +125,7 @@ import org.apache.pdfbox.pdmodel.font.PDType1Font;
 
             Statement s = conexion.createStatement();
             s.executeUpdate( SQL );
-            s.close();
+
             } catch (SQLException e) {
                 System.out.println(e.getMessage());
                 return false;
@@ -174,15 +174,16 @@ import org.apache.pdfbox.pdmodel.font.PDType1Font;
             }//FIN METODO MOSTRAR DATOS
             
             //UPDATE
-            public void editarCita(String nombremed, String especialidad, String fecha, String rut, String fecha2) throws SQLException {
+            public void editarCita(String nombremed, String rutMed,String especialidad, String fecha, String rut, String fecha2) throws SQLException {
             agendaMedica();
-            String consulta = "UPDATE agenda_medica SET nombreMed = ?, especialidad = ?, fecha = ? WHERE rutPaciente = ? AND fecha = ?";
+            String consulta = "UPDATE agenda_medica SET nombreMed = ?, rutMed = ?, especialidad = ?, fecha = ? WHERE rutPaciente = ? AND fecha = ?";
             PreparedStatement preparedStatement = conexion.prepareStatement(consulta);
             preparedStatement.setString(1,nombremed );
-            preparedStatement.setString(2,especialidad );
-            preparedStatement.setString(3, fecha );
-            preparedStatement.setString(4, rut );
-            preparedStatement.setString(5, fecha2 );
+            preparedStatement.setString(2,rutMed);
+            preparedStatement.setString(3,especialidad );
+            preparedStatement.setString(4, fecha );
+            preparedStatement.setString(5, rut );
+            preparedStatement.setString(6, fecha2 );
             preparedStatement.executeUpdate();
                 }//fin metofo editarAgenda
 
@@ -268,26 +269,46 @@ import org.apache.pdfbox.pdmodel.font.PDType1Font;
             
             
             
-            public ResultSet obtenerFiltro(String especialidad, String nombreMed, String fechaDesde, String fechaHasta) throws SQLException {
-                String consulta = "SELECT nombreMed, fecha, valorConsulta FROM agenda_medica WHERE especialidad = ? AND nombreMed = ?";
+public ResultSet obtenerFiltro(String especialidad, String nombreMed, String fechaDesde, String fechaHasta) throws SQLException {
+    StringBuilder consulta = new StringBuilder("SELECT nombreMed, fecha, valorConsulta FROM agenda_medica WHERE 1 = 1");
 
-                // Agregar filtro por fecha si las fechas no son nulas
-                if (fechaDesde != null && fechaHasta != null) {
-                    consulta += " AND fecha BETWEEN ? AND ?";
-                }
+    // Agregar filtro por especialidad si no es el valor predeterminado
+    if (!"Especialidad".equals(especialidad) && !especialidad.isBlank()) {
+        consulta.append(" AND especialidad = ?");
+    }
 
-                PreparedStatement preparedStatement = conexion.prepareStatement(consulta);
-                preparedStatement.setString(1, especialidad);
-                preparedStatement.setString(2, nombreMed);
+    // Agregar filtro por nombreMed si no está en blanco
+    if (!nombreMed.isBlank()) {
+        consulta.append(" AND nombreMed = ?");
+    }
 
-                // Configurar parámetros de fecha si las fechas no son nulas
-                if (fechaDesde != null && fechaHasta != null) {
-                    preparedStatement.setString(3, fechaDesde);
-                    preparedStatement.setString(4, fechaHasta);
-                }
+    // Agregar filtro por fecha si las fechas no son nulas
+    if (fechaDesde != null && fechaHasta != null) {
+        consulta.append(" AND fecha BETWEEN ? AND ?");
+    }
 
-                return preparedStatement.executeQuery();
-                }//FIN METODO OBTENERNOMBRE MEDICO
+    PreparedStatement preparedStatement = conexion.prepareStatement(consulta.toString());
+    int parameterIndex = 1;
+
+    // Configurar parámetros de especialidad
+    if (!"Especialidad".equals(especialidad) && !especialidad.isBlank()) {
+        preparedStatement.setString(parameterIndex++, especialidad);
+    }
+
+    // Configurar parámetros de nombreMed
+    if (!nombreMed.isBlank()) {
+        preparedStatement.setString(parameterIndex++, nombreMed);
+    }
+
+    // Configurar parámetros de fecha si las fechas no son nulas
+    if (fechaDesde != null && fechaHasta != null) {
+        preparedStatement.setString(parameterIndex++, fechaDesde);
+        preparedStatement.setString(parameterIndex++, fechaHasta);
+    }
+
+    return preparedStatement.executeQuery();
+}
+//FIN METODO OBTENERNOMBRE MEDICO
             
             public void informeFiltrado(JTable tabla, String especialidad, String nombreMed, String fechaDesde, String fechaHasta) throws SQLException {
                 agendaMedica();
@@ -456,6 +477,31 @@ import org.apache.pdfbox.pdmodel.font.PDType1Font;
                 resultSet.close();
                 desconectar();
             }//FIN METODO MOSTRAR DATOS
+            
+            
+            
+            
+            
+            
+            
+            public String obtenerRutMedico(String nombreMed) throws SQLException {
+                agendaMedica();
+                String consulta = "SELECT rutMed FROM agenda_medica WHERE nombreMed = ?";
+                try (PreparedStatement statement = conexion.prepareStatement(consulta)) {
+                    statement.setString(1, nombreMed);
+                    try (ResultSet resultSet = statement.executeQuery()) {
+                        if (resultSet.next()) {
+                            return resultSet.getString("rutMed");
+                        }
+                    }
+                } catch (SQLException e) {
+                    e.printStackTrace(); // Maneja adecuadamente la excepción en tu aplicación
+                } finally {
+                    desconectar(); // Asegúrate de cerrar la conexión
+                }
+                return null; // Devuelve lo que sea apropiado en tu caso si no se encuentra el médico
+            }
+
             
 
             

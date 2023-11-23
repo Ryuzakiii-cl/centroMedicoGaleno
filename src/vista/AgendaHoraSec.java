@@ -469,14 +469,20 @@ public class AgendaHoraSec extends javax.swing.JFrame {
         if (confirmacion == JOptionPane.YES_OPTION) {
             String fecha = txt_fechaAgenda.getText();
             String rut = modelo.getValueAt(filaSeleccionada, 0).toString();
-            String nombremed = modelo.getValueAt(filaSeleccionada, 1).toString();
+            String nombreMed = modelo.getValueAt(filaSeleccionada, 1).toString();
             String especialidad = modelo.getValueAt(filaSeleccionada, 2).toString(); 
             String fecha2 = modelo.getValueAt(filaSeleccionada, 3).toString();
 
             BD bd = new BD();
+            String rutMed = null;
+                try {
+                    rutMed = bd.obtenerRutMedico(nombreMed);
+                } catch (SQLException ex) {
+                    Logger.getLogger(AgendaHoraPac.class.getName()).log(Level.SEVERE, null, ex);
+                }
 
             try {
-                bd.editarCita(nombremed, especialidad, fecha,rut, fecha2);
+                bd.editarCita(nombreMed,rutMed, especialidad, fecha,rut, fecha2);
                 bd.actualizarCitas(modelo);
                 txt_rutPaciente.setText("");
                 cbox_especialidad.setSelectedIndex(-1);

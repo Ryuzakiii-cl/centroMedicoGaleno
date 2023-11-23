@@ -283,34 +283,30 @@ public class InformeSec extends javax.swing.JFrame {
     }//GEN-LAST:event_cbox_especialidadActionPerformed
 
     private void btn_filtrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_filtrarActionPerformed
-    BD con = new BD();
+        BD con = new BD();
 
-    String especialidad = cbox_especialidad.getSelectedItem() != null ? cbox_especialidad.getSelectedItem().toString() : "";
-    String nombreMed = cbox_medico.getSelectedItem() != null ? cbox_medico.getSelectedItem().toString() : "";
+        String especialidad = cbox_especialidad.getSelectedItem() != null ? cbox_especialidad.getSelectedItem().toString() : "";
+        String nombreMed = cbox_medico.getSelectedItem() != null ? cbox_medico.getSelectedItem().toString() : "";
 
-    // Obtener fecha desde el JDateChooser "jfecha_start"
-    Date fechaDesdeDate = jfecha_start.getDate();
-    String fechaDesdeString = null;
+        // Obtener fecha desde el JDateChooser "jfecha_start"
+        Date fechaDesdeDate = jfecha_start.getDate();
+        String fechaDesdeString = null;
 
-    if (fechaDesdeDate != null) {
-        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-        fechaDesdeString = sdf.format(fechaDesdeDate);
-    }
+        if (fechaDesdeDate != null) {
+            SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+            fechaDesdeString = sdf.format(fechaDesdeDate);
+        }
 
-    // Obtener fecha desde el JDateChooser "jfecha_end"
-    Date fechaHastaDate = jfecha_end.getDate();
-    String fechaHastaString = null;
+        // Obtener fecha desde el JDateChooser "jfecha_end"
+        Date fechaHastaDate = jfecha_end.getDate();
+        String fechaHastaString = null;
 
-    if (fechaHastaDate != null) {
-        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-        fechaHastaString = sdf.format(fechaHastaDate);
-    }
+        if (fechaHastaDate != null) {
+            SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+            fechaHastaString = sdf.format(fechaHastaDate);
+        }
 
-    try {
-        if ("Especialidad".equals(especialidad) || nombreMed.isBlank()) {
-            JOptionPane.showMessageDialog(null, "Ingrese Especialidad y Nombre del médico");
-            con.informe(modelo2);
-        } else {
+        try {
             con.informeFiltrado(modelo2, especialidad, nombreMed, fechaDesdeString, fechaHastaString);
             int numrow = modelo2.getRowCount();
             int total = 0;
@@ -319,10 +315,9 @@ public class InformeSec extends javax.swing.JFrame {
                 total += val;
             }
             lbl_total.setText("$" + Integer.toString(total));
+        } catch (SQLException ex) {
+            Logger.getLogger(InformeSec.class.getName()).log(Level.SEVERE, null, ex);
         }
-    } catch (SQLException ex) {
-        Logger.getLogger(InformeSec.class.getName()).log(Level.SEVERE, null, ex);
-    }
     }//GEN-LAST:event_btn_filtrarActionPerformed
 
     private void btn_giActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_giActionPerformed

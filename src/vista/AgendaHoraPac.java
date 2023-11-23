@@ -6,6 +6,7 @@ package vista;
 
 import controlador.Agenda;
 import java.sql.SQLException;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
@@ -28,13 +29,14 @@ public class AgendaHoraPac extends javax.swing.JFrame {
         this.setLocationRelativeTo(null);  
         this.setResizable(false);
         
+        
         PacienteView pac = PacienteView.getInstanciaActual();
         String rutUsuario = pac.getRutUsuario();
         txt_rutPaciente.setText(rutUsuario);
     }
     
     private int filaSeleccionada = -1;
-
+private BD bd = new BD();  // Crear una única instancia de BD
     
 
     /**
@@ -51,7 +53,7 @@ public class AgendaHoraPac extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
         modelo = new javax.swing.JTable();
-        jButton1 = new javax.swing.JButton();
+        btn_citas = new javax.swing.JButton();
         jLabel4 = new javax.swing.JLabel();
         txt_rutPaciente = new javax.swing.JTextField();
         jLabel2 = new javax.swing.JLabel();
@@ -127,12 +129,12 @@ public class AgendaHoraPac extends javax.swing.JFrame {
         });
         jScrollPane1.setViewportView(modelo);
 
-        jButton1.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        jButton1.setForeground(new java.awt.Color(0, 0, 0));
-        jButton1.setText("Citas");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        btn_citas.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        btn_citas.setForeground(new java.awt.Color(0, 0, 0));
+        btn_citas.setText("Citas");
+        btn_citas.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                btn_citasActionPerformed(evt);
             }
         });
 
@@ -229,7 +231,7 @@ public class AgendaHoraPac extends javax.swing.JFrame {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(43, 43, 43)
-                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 112, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(btn_citas, javax.swing.GroupLayout.PREFERRED_SIZE, 112, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(59, 59, 59)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                     .addGroup(jPanel1Layout.createSequentialGroup()
@@ -291,7 +293,7 @@ public class AgendaHoraPac extends javax.swing.JFrame {
                                     .addComponent(jLabel5)))
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addGap(37, 37, 37)
-                                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addComponent(btn_citas, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)))
                         .addGap(87, 87, 87)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(btn_agendar, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -349,14 +351,19 @@ public class AgendaHoraPac extends javax.swing.JFrame {
     }//GEN-LAST:event_cbox_medicoActionPerformed
 
     private void btn_agendarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_agendarActionPerformed
-        BD bd = new BD();
+
         Agenda a = new Agenda();
 
         
         String rut = txt_rutPaciente.getText();
         String nombreMed = cbox_medico.getSelectedItem().toString();
+        String rutMed = null;
+        try {
+            rutMed = bd.obtenerRutMedico(nombreMed);
+        } catch (SQLException ex) {
+            Logger.getLogger(AgendaHoraPac.class.getName()).log(Level.SEVERE, null, ex);
+        }
         String especialidad = cbox_especialidad.getSelectedItem().toString();
-        String fecha = txt_fechaAgenda.getText();
         Date fechaSeleccionada = jCalendar1.getCalendar().getTime();
         SimpleDateFormat formatoDeseado = new SimpleDateFormat("yyyy-MM-dd");
         String fechaAgenda = formatoDeseado.format(fechaSeleccionada);
@@ -368,6 +375,7 @@ public class AgendaHoraPac extends javax.swing.JFrame {
         try {
             a.setRutPaciente(rut);
             a.setNombreMed(nombreMed);
+            a.setRutMed(rutMed);
             a.setEspecialidad(especialidad);
             a.setFecha(fechaAgenda);
             a.setStatus(status);
@@ -375,15 +383,14 @@ public class AgendaHoraPac extends javax.swing.JFrame {
             bd.agendaMedica();
             bd.agendarCita(a);
             bd.actualizarCitasPaciente(modelo,rut);
-
-         
+            bd.desconectar();
             cbox_especialidad.setSelectedIndex(-1);
             cbox_medico.setSelectedIndex(-1);
             txt_fechaAgenda.setText("");
 
-            JOptionPane.showMessageDialog(null, "Agenda Reservada exitosamente");
+            JOptionPane.showMessageDialog(null, "Cita médica reservada exitosamente");
         } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, "no se pudo crear usuario");
+            JOptionPane.showMessageDialog(null, "no se pudo agendar cita");
             System.out.println(e);
         }
     }//GEN-LAST:event_btn_agendarActionPerformed
@@ -400,7 +407,7 @@ public class AgendaHoraPac extends javax.swing.JFrame {
 
                 try {
                     bd.cancelarCita(rutPaciente, fecha);
-                    bd.actualizarCitas(modelo);
+                    bd.actualizarCitasPaciente(modelo,rutPaciente);
                     cbox_especialidad.setSelectedIndex(-1);
                     cbox_medico.setSelectedIndex(-1);
                     txt_fechaAgenda.setText("");
@@ -419,32 +426,50 @@ public class AgendaHoraPac extends javax.swing.JFrame {
     }//GEN-LAST:event_btn_eliminarActionPerformed
 
     private void btn_modificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_modificarActionPerformed
+            
+        
             if (filaSeleccionada >= 0) {
             int confirmacion = JOptionPane.showConfirmDialog(null, "¿Confirma modificacion de la cita?", "Confirmar Modificación", JOptionPane.YES_NO_OPTION);
 
             if (confirmacion == JOptionPane.YES_OPTION) {
-                String fecha = txt_fechaAgenda.getText();
-                String rut = modelo.getValueAt(filaSeleccionada, 0).toString();
-                String nombremed = modelo.getValueAt(filaSeleccionada, 1).toString();
-                String especialidad = modelo.getValueAt(filaSeleccionada, 2).toString();
-                String fecha2 = modelo.getValueAt(filaSeleccionada, 3).toString();
-
-                BD bd = new BD();
-
                 try {
-                    bd.editarCita(nombremed, especialidad, fecha,rut, fecha2);
-                    bd.actualizarCitas(modelo);
-                    cbox_especialidad.setSelectedIndex(-1);
-                    cbox_medico.setSelectedIndex(-1);
-                    txt_fechaAgenda.setText("");
-                    JOptionPane.showMessageDialog(null, "Cita cancelada correctamente");
-                } catch (SQLException ex) {
-                    ex.printStackTrace();
-                    JOptionPane.showMessageDialog(null, "Error al cancelar la cita");
-                }
+                    String fecha = txt_fechaAgenda.getText();
+                    SimpleDateFormat formatoEntrada = new SimpleDateFormat("dd/MM/yyyy");
+                    SimpleDateFormat formatoSalida = new SimpleDateFormat("yyyy-MM-dd");
+                    
+                    Date fechaParseada = formatoEntrada.parse(fecha);
 
-                // Restablecer la variable de fila seleccionada después de la cancelación
-                filaSeleccionada = -1;
+                    String fechaSalida = formatoSalida.format(fechaParseada);
+                    
+                    String rut = modelo.getValueAt(filaSeleccionada, 0).toString();
+                    String nombreMed = modelo.getValueAt(filaSeleccionada, 1).toString();
+                    String especialidad = modelo.getValueAt(filaSeleccionada, 2).toString();
+                    String fecha2 = modelo.getValueAt(filaSeleccionada, 3).toString();
+                    
+                    BD bd = new BD();
+                    String rutMed = null;
+                    try {
+                        rutMed = bd.obtenerRutMedico(nombreMed);
+                    } catch (SQLException ex) {
+                        Logger.getLogger(AgendaHoraPac.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+                    try {
+                        bd.editarCita(nombreMed, rutMed,especialidad, fechaSalida, rut, fecha2);
+                        bd.actualizarCitasPaciente(modelo,rut);
+                        cbox_especialidad.setSelectedIndex(-1);
+                        cbox_medico.setSelectedIndex(-1);
+                        txt_fechaAgenda.setText("");
+                        JOptionPane.showMessageDialog(null, "Cita modificada correctamente");
+                    } catch (SQLException ex) {
+                        ex.printStackTrace();
+                        JOptionPane.showMessageDialog(null, "Error al cancelar la cita");
+                    }
+                    
+                    // Restablecer la variable de fila seleccionada después de la cancelación
+                    filaSeleccionada = -1;
+                } catch (ParseException ex) {
+                    Logger.getLogger(AgendaHoraPac.class.getName()).log(Level.SEVERE, null, ex);
+                }
             }
         } else {
             JOptionPane.showMessageDialog(null, "Por favor, seleccione una cita para cancelar");
@@ -458,7 +483,7 @@ public class AgendaHoraPac extends javax.swing.JFrame {
         p.setVisible(true);
     }//GEN-LAST:event_btn_backActionPerformed
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+    private void btn_citasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_citasActionPerformed
             BD con = new BD();
             try {
                 String rutPaciente = txt_rutPaciente.getText();
@@ -467,7 +492,7 @@ public class AgendaHoraPac extends javax.swing.JFrame {
             catch (SQLException ex) {
                 Logger.getLogger(AgendaHoraSec.class.getName()).log(Level.SEVERE, null, ex);
             }
-    }//GEN-LAST:event_jButton1ActionPerformed
+    }//GEN-LAST:event_btn_citasActionPerformed
 
     private void jCalendar1PropertyChange(java.beans.PropertyChangeEvent evt) {//GEN-FIRST:event_jCalendar1PropertyChange
             if (evt.getOldValue() != null) {
@@ -527,11 +552,11 @@ public class AgendaHoraPac extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btn_agendar;
     private javax.swing.JButton btn_back;
+    private javax.swing.JButton btn_citas;
     private javax.swing.JButton btn_eliminar;
     private javax.swing.JButton btn_modificar;
     private javax.swing.JComboBox<String> cbox_especialidad;
     private javax.swing.JComboBox<String> cbox_medico;
-    private javax.swing.JButton jButton1;
     private com.toedter.calendar.JCalendar jCalendar1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
