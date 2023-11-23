@@ -1,7 +1,3 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
- */
 package vista;
 
 import java.sql.SQLException;
@@ -14,19 +10,19 @@ import javax.swing.JOptionPane;
 import modelo.BD;
 import javax.swing.JTable;
 
-/**
- *
- * @author Criiiis
- */
+
+
 public class InformeSec extends javax.swing.JFrame {
 
-    /**
-     * Creates new form InformeSec
-     */
     public InformeSec() {
         initComponents();
         this.setLocationRelativeTo(null);
         this.setResizable(false);
+        
+        
+        SecretariaView sec = SecretariaView.getInstanciaActual();
+        String nombreUsuario = sec.getNombreUsuario();
+        lbl_usuario.setText("Bienvenido/a " + nombreUsuario);
     }
     private int obtenerTotalRecaudado() {
         String totalTexto = lbl_total.getText().replace("$", "");
@@ -59,6 +55,8 @@ public class InformeSec extends javax.swing.JFrame {
         btn_cancelar = new javax.swing.JButton();
         btn_gi = new javax.swing.JButton();
         jLabel8 = new javax.swing.JLabel();
+        jButton1 = new javax.swing.JButton();
+        lbl_usuario = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -149,6 +147,11 @@ public class InformeSec extends javax.swing.JFrame {
         jLabel8.setForeground(new java.awt.Color(0, 0, 0));
         jLabel8.setText("Centro Médico Galenos");
 
+        jButton1.setText("Cerrar Sesion");
+
+        lbl_usuario.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
+        lbl_usuario.setForeground(new java.awt.Color(0, 0, 0));
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -187,14 +190,25 @@ public class InformeSec extends javax.swing.JFrame {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(121, 121, 121)
                 .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 407, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(lbl_usuario, javax.swing.GroupLayout.PREFERRED_SIZE, 285, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(26, 26, 26)
+                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(46, 46, 46))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(7, 7, 7)
-                .addComponent(jLabel8)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(21, 21, 21)
+                        .addComponent(jButton1))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(7, 7, 7)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(lbl_usuario, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel8))))
+                .addGap(18, 18, 18)
                 .addComponent(jLayeredPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(53, 53, 53)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 288, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -218,7 +232,7 @@ public class InformeSec extends javax.swing.JFrame {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(btn_cancelar, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btn_gi, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(101, Short.MAX_VALUE))
+                .addContainerGap(89, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -254,7 +268,7 @@ public class InformeSec extends javax.swing.JFrame {
     }//GEN-LAST:event_btn_recaudacionActionPerformed
 
     private void btn_cancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_cancelarActionPerformed
-        SecretariaView s = new SecretariaView();
+        SecretariaView s = SecretariaView.getInstanciaActual();
         this.setVisible(false);
         s.setVisible(true);
     }//GEN-LAST:event_btn_cancelarActionPerformed
@@ -368,6 +382,7 @@ public class InformeSec extends javax.swing.JFrame {
     private javax.swing.JButton btn_recaudacion;
     private javax.swing.JComboBox<String> cbox_especialidad;
     private javax.swing.JComboBox<String> cbox_medico;
+    private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel8;
@@ -377,6 +392,7 @@ public class InformeSec extends javax.swing.JFrame {
     private com.toedter.calendar.JDateChooser jfecha_end;
     private com.toedter.calendar.JDateChooser jfecha_start;
     private javax.swing.JLabel lbl_total;
+    private javax.swing.JLabel lbl_usuario;
     private javax.swing.JTable modelo2;
     // End of variables declaration//GEN-END:variables
 }

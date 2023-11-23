@@ -1,7 +1,3 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
- */
 package vista;
 import controlador.Agenda;
 import java.sql.SQLException;
@@ -15,33 +11,23 @@ import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import modelo.BD;
 
-/**
- *
- * @author Criiiis
- */
+
 public class AgendaHoraSec extends javax.swing.JFrame {
 
-    /**
-     * Creates new form AgendaHoraSec
-     */
     public AgendaHoraSec() {
         initComponents();
-        
-
-
-
-        
         this.setLocationRelativeTo(null);  
         this.setResizable(false);
+        
+        SecretariaView sec = SecretariaView.getInstanciaActual();
+        String nombreUsuario = sec.getNombreUsuario();
+        lbl_usuario.setText("Bienvenido/a " +nombreUsuario);
     }
     
         private String nombreUsuario;
         private String rutUsuario;
     
-    public void setNombreUsuario(String nombreUsuario) {
-           this.nombreUsuario = nombreUsuario;
-           lbl_usuario.setText("Bienvenido/a " + nombreUsuario);
-    }
+
     
     public void setRutUsuario(String rutUsuario){
         this.rutUsuario = rutUsuario;
@@ -222,6 +208,7 @@ public class AgendaHoraSec extends javax.swing.JFrame {
             }
         });
 
+        lbl_usuario.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
         lbl_usuario.setForeground(new java.awt.Color(0, 0, 0));
 
         btn_cerrar_sesion.setText("Cerrar Sesion");
@@ -279,19 +266,28 @@ public class AgendaHoraSec extends javax.swing.JFrame {
                 .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 433, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(lbl_usuario, javax.swing.GroupLayout.PREFERRED_SIZE, 257, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(66, 66, 66)
-                .addComponent(btn_cerrar_sesion, javax.swing.GroupLayout.PREFERRED_SIZE, 121, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(67, 67, 67))
+                .addGap(56, 56, 56)
+                .addComponent(btn_cerrar_sesion, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(75, 75, 75))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(6, 6, 6)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(lbl_usuario, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btn_cerrar_sesion))
-                .addGap(26, 26, 26)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addGap(6, 6, 6)
+                                .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                                .addContainerGap()
+                                .addComponent(btn_cerrar_sesion)
+                                .addGap(7, 7, 7)))
+                        .addGap(26, 26, 26))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(lbl_usuario, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)))
                 .addComponent(jLayeredPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 152, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -344,7 +340,7 @@ public class AgendaHoraSec extends javax.swing.JFrame {
 
     private void btn_backActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_backActionPerformed
         // TODO add your handling code here:
-        SecretariaView s = new SecretariaView();
+        SecretariaView s = SecretariaView.getInstanciaActual();
         this.setVisible(false);
         s.setVisible(true);
     }//GEN-LAST:event_btn_backActionPerformed

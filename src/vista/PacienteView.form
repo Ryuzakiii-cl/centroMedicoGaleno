@@ -47,7 +47,7 @@
                   <EmptySpace min="-2" pref="89" max="-2" attributes="0"/>
                   <Component id="jLabel8" max="32767" attributes="0"/>
                   <EmptySpace min="-2" pref="436" max="-2" attributes="0"/>
-                  <Component id="jlabel_usuario" min="-2" pref="282" max="-2" attributes="0"/>
+                  <Component id="lbl_usuario" min="-2" pref="282" max="-2" attributes="0"/>
                   <EmptySpace type="separate" max="-2" attributes="0"/>
                   <Component id="jButton1" min="-2" pref="127" max="-2" attributes="0"/>
                   <EmptySpace min="-2" pref="15" max="-2" attributes="0"/>
@@ -73,7 +73,7 @@
                       <Group type="102" attributes="0">
                           <EmptySpace min="-2" pref="26" max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="0" attributes="0">
-                              <Component id="jlabel_usuario" min="-2" pref="59" max="-2" attributes="0"/>
+                              <Component id="lbl_usuario" min="-2" pref="59" max="-2" attributes="0"/>
                               <Component id="jLabel8" min="-2" pref="66" max="-2" attributes="0"/>
                           </Group>
                       </Group>
@@ -138,10 +138,13 @@
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButton1ActionPerformed"/>
           </Events>
         </Component>
-        <Component class="javax.swing.JLabel" name="jlabel_usuario">
+        <Component class="javax.swing.JLabel" name="lbl_usuario">
           <Properties>
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-              <Font name="Segoe UI" size="24" style="0"/>
+              <Font name="Segoe UI" size="24" style="1"/>
+            </Property>
+            <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+              <Color blue="0" green="0" red="0" type="rgb"/>
             </Property>
           </Properties>
         </Component>

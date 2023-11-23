@@ -1,34 +1,41 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
- */
 package vista;
 import  modelo.BD;
 
 
 public class SecretariaView extends javax.swing.JFrame {
+    private static SecretariaView instanciaActual;
 
-    /**
-     * Creates new form SecretariaView
-     */
     public SecretariaView() {
 
         initComponents();
         this.setLocationRelativeTo(null);
         this.setResizable(false);
+        instanciaActual = this;
     }
+        private String nombreUsuario;
+        private String rutUsuario;
+
     
     
-    private String nombreUsuario;
-    private String rutUsuario;
-    
- public void setRutUsuario(String rutUsuario) {
+    public static SecretariaView getInstanciaActual() {
+            return instanciaActual;
+    }
+        
+    public void setNombreUsuario(String nombreUsuario) {
+            this.nombreUsuario = nombreUsuario;
+            lbl_usuario.setText("Bienvenido/a " + nombreUsuario);
+    }
+    public void setRutUsuario(String rutUsuario) {
+            this.rutUsuario = rutUsuario;
     }
 
-    public void setNombreUsuario(String nombreUsuario) {
-        jlabel_usuario.setText("Bienvenido/A "+nombreUsuario);
+    public String getNombreUsuario() {
+            return this.nombreUsuario;
     }
-    
+
+    public String getRutUsuario() {
+            return rutUsuario;
+    }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -42,7 +49,7 @@ public class SecretariaView extends javax.swing.JFrame {
         jLayeredPane1 = new javax.swing.JLayeredPane();
         jButton1 = new javax.swing.JButton();
         btn_recaudar = new javax.swing.JButton();
-        jlabel_usuario = new javax.swing.JLabel();
+        lbl_usuario = new javax.swing.JLabel();
         jButton2 = new javax.swing.JButton();
         jLabel6 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
@@ -75,9 +82,9 @@ public class SecretariaView extends javax.swing.JFrame {
         });
         jLayeredPane1.add(btn_recaudar, new org.netbeans.lib.awtextra.AbsoluteConstraints(900, 0, 190, 40));
 
-        jlabel_usuario.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
-        jlabel_usuario.setForeground(new java.awt.Color(0, 0, 0));
-        jlabel_usuario.setPreferredSize(new java.awt.Dimension(102, 25));
+        lbl_usuario.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
+        lbl_usuario.setForeground(new java.awt.Color(0, 0, 0));
+        lbl_usuario.setPreferredSize(new java.awt.Dimension(102, 25));
 
         jButton2.setText("Cerrar Sesion");
         jButton2.addActionListener(new java.awt.event.ActionListener() {
@@ -140,7 +147,7 @@ public class SecretariaView extends javax.swing.JFrame {
                 .addGap(75, 75, 75)
                 .addComponent(jLabel8, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGap(411, 411, 411)
-                .addComponent(jlabel_usuario, javax.swing.GroupLayout.PREFERRED_SIZE, 314, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(lbl_usuario, javax.swing.GroupLayout.PREFERRED_SIZE, 314, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 127, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(22, 22, 22))
@@ -165,7 +172,7 @@ public class SecretariaView extends javax.swing.JFrame {
                         .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 66, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(24, 24, 24)
-                        .addComponent(jlabel_usuario, javax.swing.GroupLayout.PREFERRED_SIZE, 66, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(lbl_usuario, javax.swing.GroupLayout.PREFERRED_SIZE, 66, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(44, 44, 44)
                         .addComponent(jButton2)))
@@ -262,6 +269,6 @@ public class SecretariaView extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLayeredPane jLayeredPane1;
     private javax.swing.JPanel jPanel1;
-    private javax.swing.JLabel jlabel_usuario;
+    private javax.swing.JLabel lbl_usuario;
     // End of variables declaration//GEN-END:variables
 }

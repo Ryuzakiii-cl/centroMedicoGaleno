@@ -1,18 +1,8 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
- */
 package vista;
 
-/**
- *
- * @author Criiiis
- */
 public class PacienteView extends javax.swing.JFrame {
     private static PacienteView instanciaActual;
-    /**
-     * Creates new form PacienteView
-     */
+
     public PacienteView() {
         initComponents();
         this.setLocationRelativeTo(null);
@@ -28,7 +18,7 @@ public class PacienteView extends javax.swing.JFrame {
         
     public void setNombreUsuario(String nombreUsuario) {
             this.nombreUsuario = nombreUsuario;
-            jlabel_usuario.setText("Bienvenido/a " + nombreUsuario);
+            lbl_usuario.setText("Bienvenido/a " + nombreUsuario);
     }
     public void setRutUsuario(String rutUsuario) {
             this.rutUsuario = rutUsuario;
@@ -55,7 +45,7 @@ public class PacienteView extends javax.swing.JFrame {
         jLayeredPane1 = new javax.swing.JLayeredPane();
         btn_agendar = new javax.swing.JButton();
         jButton1 = new javax.swing.JButton();
-        jlabel_usuario = new javax.swing.JLabel();
+        lbl_usuario = new javax.swing.JLabel();
         jLabel8 = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
@@ -87,7 +77,8 @@ public class PacienteView extends javax.swing.JFrame {
             }
         });
 
-        jlabel_usuario.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
+        lbl_usuario.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
+        lbl_usuario.setForeground(new java.awt.Color(0, 0, 0));
 
         jLabel8.setFont(new java.awt.Font("Segoe UI", 1, 36)); // NOI18N
         jLabel8.setForeground(new java.awt.Color(0, 0, 0));
@@ -133,7 +124,7 @@ public class PacienteView extends javax.swing.JFrame {
                 .addGap(89, 89, 89)
                 .addComponent(jLabel8, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGap(436, 436, 436)
-                .addComponent(jlabel_usuario, javax.swing.GroupLayout.PREFERRED_SIZE, 282, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(lbl_usuario, javax.swing.GroupLayout.PREFERRED_SIZE, 282, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 127, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(15, 15, 15))
@@ -156,7 +147,7 @@ public class PacienteView extends javax.swing.JFrame {
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(26, 26, 26)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jlabel_usuario, javax.swing.GroupLayout.PREFERRED_SIZE, 59, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(lbl_usuario, javax.swing.GroupLayout.PREFERRED_SIZE, 59, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 66, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(44, 44, 44)
@@ -243,7 +234,7 @@ public class PacienteView extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLayeredPane jLayeredPane1;
     private javax.swing.JPanel jPanel1;
-    private javax.swing.JLabel jlabel_usuario;
+    private javax.swing.JLabel lbl_usuario;
     // End of variables declaration//GEN-END:variables
 
 
