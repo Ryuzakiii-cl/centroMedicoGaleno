@@ -11,6 +11,7 @@ public class AdministradorView extends javax.swing.JFrame {
         this.setLocationRelativeTo(null);
         this.setResizable(false);
         instanciaActual = this;
+                this.setExtendedState(MAXIMIZED_BOTH);
         
         AdministradorView adm = AdministradorView.getInstanciaActual();
         String nombreUsuario = adm.getNombreusuario();
@@ -66,12 +67,17 @@ public class AdministradorView extends javax.swing.JFrame {
         btn_cerrar = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setMaximumSize(new java.awt.Dimension(1366, 768));
+        setMinimumSize(new java.awt.Dimension(1024, 768));
+        getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jPanel1.setBackground(new java.awt.Color(102, 255, 255));
+        jPanel1.setMaximumSize(new java.awt.Dimension(1366, 768));
+        jPanel1.setMinimumSize(new java.awt.Dimension(1024, 768));
+        jPanel1.setPreferredSize(new java.awt.Dimension(1366, 768));
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         logo.setFont(new java.awt.Font("Segoe UI", 1, 36)); // NOI18N
-        logo.setForeground(new java.awt.Color(0, 0, 0));
         logo.setText("Centro Médico Galenos");
         jPanel1.add(logo, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 30, 407, 82));
 
@@ -79,99 +85,74 @@ public class AdministradorView extends javax.swing.JFrame {
         banner.setOpaque(true);
         jPanel1.add(banner, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 150, 1505, 60));
 
-        jLabel_name.setForeground(new java.awt.Color(0, 0, 0));
         jLabel_name.setText("Nombre:");
-        jPanel1.add(jLabel_name, new org.netbeans.lib.awtextra.AbsoluteConstraints(611, 286, 53, -1));
+        jPanel1.add(jLabel_name, new org.netbeans.lib.awtextra.AbsoluteConstraints(490, 290, 53, -1));
 
-        jLabel_lname.setForeground(new java.awt.Color(0, 0, 0));
         jLabel_lname.setText("Apellido:");
-        jPanel1.add(jLabel_lname, new org.netbeans.lib.awtextra.AbsoluteConstraints(611, 326, 53, -1));
+        jPanel1.add(jLabel_lname, new org.netbeans.lib.awtextra.AbsoluteConstraints(490, 330, 53, -1));
 
-        jLabel_rutt.setForeground(new java.awt.Color(0, 0, 0));
         jLabel_rutt.setText("Rut:");
-        jPanel1.add(jLabel_rutt, new org.netbeans.lib.awtextra.AbsoluteConstraints(611, 366, 53, -1));
+        jPanel1.add(jLabel_rutt, new org.netbeans.lib.awtextra.AbsoluteConstraints(490, 370, 53, -1));
 
-        jLabel_adress.setForeground(new java.awt.Color(0, 0, 0));
         jLabel_adress.setText("Dirección:");
-        jPanel1.add(jLabel_adress, new org.netbeans.lib.awtextra.AbsoluteConstraints(611, 406, -1, -1));
+        jPanel1.add(jLabel_adress, new org.netbeans.lib.awtextra.AbsoluteConstraints(490, 410, -1, -1));
 
-        jLabel_fono.setForeground(new java.awt.Color(0, 0, 0));
         jLabel_fono.setText("Telefono:");
-        jPanel1.add(jLabel_fono, new org.netbeans.lib.awtextra.AbsoluteConstraints(611, 446, 53, -1));
+        jPanel1.add(jLabel_fono, new org.netbeans.lib.awtextra.AbsoluteConstraints(490, 450, 53, -1));
 
-        jLabel_correo.setForeground(new java.awt.Color(0, 0, 0));
         jLabel_correo.setText("Correo:");
-        jPanel1.add(jLabel_correo, new org.netbeans.lib.awtextra.AbsoluteConstraints(611, 486, 51, -1));
+        jPanel1.add(jLabel_correo, new org.netbeans.lib.awtextra.AbsoluteConstraints(490, 490, 51, -1));
 
-        txt_name.setBackground(new java.awt.Color(255, 255, 255));
         txt_name.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txt_nameActionPerformed(evt);
             }
         });
-        jPanel1.add(txt_name, new org.netbeans.lib.awtextra.AbsoluteConstraints(722, 283, 220, -1));
-
-        txt_lname.setBackground(new java.awt.Color(255, 255, 255));
-        jPanel1.add(txt_lname, new org.netbeans.lib.awtextra.AbsoluteConstraints(722, 323, 220, -1));
-
-        txt_rutt.setBackground(new java.awt.Color(255, 255, 255));
-        jPanel1.add(txt_rutt, new org.netbeans.lib.awtextra.AbsoluteConstraints(722, 363, 220, -1));
-
-        txt_adress.setBackground(new java.awt.Color(255, 255, 255));
-        jPanel1.add(txt_adress, new org.netbeans.lib.awtextra.AbsoluteConstraints(722, 403, 220, -1));
-
-        txt_fono.setBackground(new java.awt.Color(255, 255, 255));
-        jPanel1.add(txt_fono, new org.netbeans.lib.awtextra.AbsoluteConstraints(722, 443, 220, -1));
-
-        txt_correo.setBackground(new java.awt.Color(255, 255, 255));
-        jPanel1.add(txt_correo, new org.netbeans.lib.awtextra.AbsoluteConstraints(722, 483, 220, -1));
+        jPanel1.add(txt_name, new org.netbeans.lib.awtextra.AbsoluteConstraints(600, 290, 220, -1));
+        jPanel1.add(txt_lname, new org.netbeans.lib.awtextra.AbsoluteConstraints(600, 330, 220, -1));
+        jPanel1.add(txt_rutt, new org.netbeans.lib.awtextra.AbsoluteConstraints(600, 370, 220, -1));
+        jPanel1.add(txt_adress, new org.netbeans.lib.awtextra.AbsoluteConstraints(600, 410, 220, -1));
+        jPanel1.add(txt_fono, new org.netbeans.lib.awtextra.AbsoluteConstraints(600, 450, 220, -1));
+        jPanel1.add(txt_correo, new org.netbeans.lib.awtextra.AbsoluteConstraints(600, 490, 220, -1));
 
         registro.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
-        registro.setForeground(new java.awt.Color(0, 0, 0));
         registro.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         registro.setText("Registro De Usuario");
         registro.setVerticalAlignment(javax.swing.SwingConstants.TOP);
-        registro.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Segoe UI", 0, 12), new java.awt.Color(0, 0, 0))); // NOI18N
+        registro.setBorder(javax.swing.BorderFactory.createTitledBorder(""));
         registro.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        jPanel1.add(registro, new org.netbeans.lib.awtextra.AbsoluteConstraints(560, 220, 440, 442));
+        jPanel1.add(registro, new org.netbeans.lib.awtextra.AbsoluteConstraints(440, 220, 440, 442));
 
-        btn_registro.setBackground(new java.awt.Color(255, 255, 255));
-        btn_registro.setForeground(new java.awt.Color(0, 0, 0));
         btn_registro.setText("Registrar");
         btn_registro.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btn_registroActionPerformed(evt);
             }
         });
-        jPanel1.add(btn_registro, new org.netbeans.lib.awtextra.AbsoluteConstraints(630, 690, 120, -1));
+        jPanel1.add(btn_registro, new org.netbeans.lib.awtextra.AbsoluteConstraints(510, 690, 120, -1));
 
-        btn_limpiar.setBackground(new java.awt.Color(255, 255, 255));
-        btn_limpiar.setForeground(new java.awt.Color(0, 0, 0));
         btn_limpiar.setText("Limpiar");
         btn_limpiar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btn_limpiarActionPerformed(evt);
             }
         });
-        jPanel1.add(btn_limpiar, new org.netbeans.lib.awtextra.AbsoluteConstraints(800, 690, 120, -1));
+        jPanel1.add(btn_limpiar, new org.netbeans.lib.awtextra.AbsoluteConstraints(680, 690, 120, -1));
 
-        lbl_rol.setForeground(new java.awt.Color(0, 0, 0));
         lbl_rol.setText("Rol:");
-        jPanel1.add(lbl_rol, new org.netbeans.lib.awtextra.AbsoluteConstraints(611, 534, -1, -1));
+        jPanel1.add(lbl_rol, new org.netbeans.lib.awtextra.AbsoluteConstraints(490, 540, -1, -1));
 
-        lbl_especialidad.setForeground(new java.awt.Color(0, 0, 0));
         lbl_especialidad.setText("Especialiad");
-        jPanel1.add(lbl_especialidad, new org.netbeans.lib.awtextra.AbsoluteConstraints(611, 578, -1, -1));
+        jPanel1.add(lbl_especialidad, new org.netbeans.lib.awtextra.AbsoluteConstraints(490, 580, -1, -1));
 
         cbox_rol.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Seleccione rol...", "Medico", "Secretaria", "paciente", "administrador" }));
-        jPanel1.add(cbox_rol, new org.netbeans.lib.awtextra.AbsoluteConstraints(722, 531, 220, -1));
+        jPanel1.add(cbox_rol, new org.netbeans.lib.awtextra.AbsoluteConstraints(600, 530, 220, -1));
 
         cbox_especialidad.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Seleccione especialidad...", "Kinesiologo", "Traumatologo", "General", "paciente", "Secretaria" }));
-        jPanel1.add(cbox_especialidad, new org.netbeans.lib.awtextra.AbsoluteConstraints(722, 575, 220, -1));
+        jPanel1.add(cbox_especialidad, new org.netbeans.lib.awtextra.AbsoluteConstraints(600, 580, 220, -1));
 
         lbl_usuario.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
-        lbl_usuario.setForeground(new java.awt.Color(0, 0, 0));
-        jPanel1.add(lbl_usuario, new org.netbeans.lib.awtextra.AbsoluteConstraints(712, 40, 480, 59));
+        jPanel1.add(lbl_usuario, new org.netbeans.lib.awtextra.AbsoluteConstraints(550, 40, 480, 59));
 
         btn_cerrar.setText("Cerrar Sesion");
         btn_cerrar.addActionListener(new java.awt.event.ActionListener() {
@@ -179,18 +160,10 @@ public class AdministradorView extends javax.swing.JFrame {
                 btn_cerrarActionPerformed(evt);
             }
         });
-        jPanel1.add(btn_cerrar, new org.netbeans.lib.awtextra.AbsoluteConstraints(1250, 60, 121, -1));
+        jPanel1.add(btn_cerrar, new org.netbeans.lib.awtextra.AbsoluteConstraints(1120, 60, 121, -1));
 
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
-        getContentPane().setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 793, Short.MAX_VALUE)
-        );
+        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
+        jPanel1.getAccessibleContext().setAccessibleName("");
 
         pack();
     }// </editor-fold>//GEN-END:initComponents

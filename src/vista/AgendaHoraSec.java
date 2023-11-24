@@ -66,12 +66,17 @@ public class AgendaHoraSec extends javax.swing.JFrame {
         btn_cerrar_sesion = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setMaximumSize(new java.awt.Dimension(1366, 768));
+        setMinimumSize(new java.awt.Dimension(1024, 768));
+        setPreferredSize(new java.awt.Dimension(1366, 768));
+        getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jPanel1.setBackground(new java.awt.Color(102, 255, 255));
-        jPanel1.setPreferredSize(new java.awt.Dimension(1424, 787));
+        jPanel1.setMaximumSize(new java.awt.Dimension(1366, 768));
+        jPanel1.setMinimumSize(new java.awt.Dimension(1024, 768));
+        jPanel1.setPreferredSize(new java.awt.Dimension(1366, 768));
 
         jLabel2.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        jLabel2.setForeground(new java.awt.Color(0, 0, 0));
         jLabel2.setText("Especialidad:");
 
         cbox_especialidad.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
@@ -83,7 +88,6 @@ public class AgendaHoraSec extends javax.swing.JFrame {
         });
 
         jLabel3.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        jLabel3.setForeground(new java.awt.Color(0, 0, 0));
         jLabel3.setText("Medico:");
 
         cbox_medico.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
@@ -94,11 +98,9 @@ public class AgendaHoraSec extends javax.swing.JFrame {
         });
 
         jLabel4.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        jLabel4.setForeground(new java.awt.Color(0, 0, 0));
         jLabel4.setText("Rut Paciente:");
 
         jLabel5.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        jLabel5.setForeground(new java.awt.Color(0, 0, 0));
         jLabel5.setText("Fecha:");
 
         txt_fechaAgenda.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
@@ -115,7 +117,6 @@ public class AgendaHoraSec extends javax.swing.JFrame {
         jLayeredPane1.setOpaque(true);
 
         jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 36)); // NOI18N
-        jLabel1.setForeground(new java.awt.Color(0, 0, 0));
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel1.setText("AGENDA MEDICA");
 
@@ -139,7 +140,6 @@ public class AgendaHoraSec extends javax.swing.JFrame {
         );
 
         jLabel8.setFont(new java.awt.Font("Segoe UI", 1, 36)); // NOI18N
-        jLabel8.setForeground(new java.awt.Color(0, 0, 0));
         jLabel8.setText("Centro Médico Galenos");
 
         btn_back.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
@@ -155,6 +155,8 @@ public class AgendaHoraSec extends javax.swing.JFrame {
                 jCalendar1PropertyChange(evt);
             }
         });
+
+        txt_rutPaciente.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
 
         btn_eliminar.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         btn_eliminar.setText("Eliminar");
@@ -209,7 +211,6 @@ public class AgendaHoraSec extends javax.swing.JFrame {
         });
 
         lbl_usuario.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
-        lbl_usuario.setForeground(new java.awt.Color(0, 0, 0));
 
         btn_cerrar_sesion.setText("Cerrar Sesion");
         btn_cerrar_sesion.addActionListener(new java.awt.event.ActionListener() {
@@ -265,29 +266,25 @@ public class AgendaHoraSec extends javax.swing.JFrame {
                 .addGap(32, 32, 32)
                 .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 433, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(lbl_usuario, javax.swing.GroupLayout.PREFERRED_SIZE, 257, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(56, 56, 56)
+                .addComponent(lbl_usuario, javax.swing.GroupLayout.PREFERRED_SIZE, 304, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(117, 117, 117)
                 .addComponent(btn_cerrar_sesion, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(75, 75, 75))
+                .addGap(128, 128, 128))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addGap(6, 6, 6)
-                                .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                                .addContainerGap()
-                                .addComponent(btn_cerrar_sesion)
-                                .addGap(7, 7, 7)))
-                        .addGap(26, 26, 26))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(lbl_usuario, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)))
+                        .addGap(20, 20, 20)
+                        .addComponent(btn_cerrar_sesion)
+                        .addGap(36, 36, 36))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(6, 6, 6)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(lbl_usuario, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(26, 26, 26)))
                 .addComponent(jLayeredPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 152, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -324,16 +321,7 @@ public class AgendaHoraSec extends javax.swing.JFrame {
                     .addComponent(jCalendar1, javax.swing.GroupLayout.PREFERRED_SIZE, 348, javax.swing.GroupLayout.PREFERRED_SIZE)))
         );
 
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
-        getContentPane().setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 1437, Short.MAX_VALUE)
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-        );
+        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1437, 787));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -430,7 +418,7 @@ public class AgendaHoraSec extends javax.swing.JFrame {
 
                     try {
                         bd.cancelarCita(rutPaciente, fecha);
-                        bd.actualizarCitas(modelo);
+                        bd.actualizarCitas2(modelo,rutPaciente);
                         txt_rutPaciente.setText("");
                         cbox_especialidad.setSelectedIndex(-1);
                         cbox_medico.setSelectedIndex(-1);
@@ -496,8 +484,7 @@ public class AgendaHoraSec extends javax.swing.JFrame {
                         ex.printStackTrace();
                         JOptionPane.showMessageDialog(null, "Error al cancelar la cita");
                     }
-                    
-                    // Restablecer la variable de fila seleccionada después de la cancelación
+
                     filaSeleccionada = -1;
                 } catch (ParseException ex) {
                     Logger.getLogger(AgendaHoraSec.class.getName()).log(Level.SEVERE, null, ex);

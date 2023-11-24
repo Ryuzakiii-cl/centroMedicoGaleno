@@ -18,7 +18,7 @@ public class AgendaHoraPac extends javax.swing.JFrame {
         initComponents();
         this.setLocationRelativeTo(null);  
         this.setResizable(false);
-        
+
         
         PacienteView pac = PacienteView.getInstanciaActual();
         String rutUsuario = pac.getRutUsuario();
@@ -64,14 +64,21 @@ private BD bd = new BD();  // Crear una única instancia de BD
         jButton1 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setExtendedState(6);
+        setMaximumSize(new java.awt.Dimension(1366, 768));
+        setMinimumSize(new java.awt.Dimension(1024, 768));
+        setPreferredSize(new java.awt.Dimension(1366, 768));
+        setResizable(false);
+        getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jPanel1.setBackground(new java.awt.Color(102, 255, 255));
+        jPanel1.setPreferredSize(new java.awt.Dimension(1366, 758));
+        jPanel1.setRequestFocusEnabled(false);
 
         jLayeredPane1.setBackground(new java.awt.Color(0, 105, 255));
         jLayeredPane1.setOpaque(true);
 
         jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 36)); // NOI18N
-        jLabel1.setForeground(new java.awt.Color(0, 0, 0));
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel1.setText("AGENDA MEDICA");
 
@@ -84,7 +91,7 @@ private BD bd = new BD();  // Crear una única instancia de BD
             .addGroup(jLayeredPane1Layout.createSequentialGroup()
                 .addGap(263, 263, 263)
                 .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 839, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(335, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jLayeredPane1Layout.setVerticalGroup(
             jLayeredPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -124,7 +131,6 @@ private BD bd = new BD();  // Crear una única instancia de BD
         jScrollPane1.setViewportView(modelo);
 
         btn_citas.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        btn_citas.setForeground(new java.awt.Color(0, 0, 0));
         btn_citas.setText("Citas");
         btn_citas.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -133,19 +139,15 @@ private BD bd = new BD();  // Crear una única instancia de BD
         });
 
         jLabel4.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        jLabel4.setForeground(new java.awt.Color(0, 0, 0));
         jLabel4.setText("Rut Paciente:");
 
         txt_rutPaciente.setEditable(false);
         txt_rutPaciente.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        txt_rutPaciente.setForeground(new java.awt.Color(0, 0, 0));
 
         jLabel2.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        jLabel2.setForeground(new java.awt.Color(0, 0, 0));
         jLabel2.setText("Especialidad:");
 
         cbox_especialidad.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        cbox_especialidad.setForeground(new java.awt.Color(0, 0, 0));
         cbox_especialidad.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Seleccione una especialidad", "Kinesiologo", "Traumatologo", "General" }));
         cbox_especialidad.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -154,11 +156,9 @@ private BD bd = new BD();  // Crear una única instancia de BD
         });
 
         jLabel3.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        jLabel3.setForeground(new java.awt.Color(0, 0, 0));
         jLabel3.setText("Medico:");
 
         cbox_medico.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        cbox_medico.setForeground(new java.awt.Color(0, 0, 0));
         cbox_medico.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 cbox_medicoActionPerformed(evt);
@@ -166,14 +166,11 @@ private BD bd = new BD();  // Crear una única instancia de BD
         });
 
         jLabel5.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        jLabel5.setForeground(new java.awt.Color(0, 0, 0));
         jLabel5.setText("Fecha:");
 
         txt_fechaAgenda.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        txt_fechaAgenda.setForeground(new java.awt.Color(0, 0, 0));
 
         btn_agendar.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        btn_agendar.setForeground(new java.awt.Color(0, 0, 0));
         btn_agendar.setText("Agendar");
         btn_agendar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -182,7 +179,6 @@ private BD bd = new BD();  // Crear una única instancia de BD
         });
 
         btn_eliminar.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        btn_eliminar.setForeground(new java.awt.Color(0, 0, 0));
         btn_eliminar.setText("Eliminar");
         btn_eliminar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -191,7 +187,6 @@ private BD bd = new BD();  // Crear una única instancia de BD
         });
 
         btn_modificar.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        btn_modificar.setForeground(new java.awt.Color(0, 0, 0));
         btn_modificar.setText("Modificar");
         btn_modificar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -200,7 +195,6 @@ private BD bd = new BD();  // Crear una única instancia de BD
         });
 
         btn_back.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        btn_back.setForeground(new java.awt.Color(0, 0, 0));
         btn_back.setText("Atras");
         btn_back.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -215,7 +209,6 @@ private BD bd = new BD();  // Crear una única instancia de BD
         });
 
         lbl_usuario.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
-        lbl_usuario.setForeground(new java.awt.Color(0, 0, 0));
 
         jButton1.setText("Cerrar Sesion");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
@@ -264,21 +257,21 @@ private BD bd = new BD();  // Crear una única instancia de BD
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(lbl_usuario, javax.swing.GroupLayout.PREFERRED_SIZE, 282, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(40, 40, 40)
+                .addGap(184, 184, 184)
                 .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 121, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(108, 108, 108))
+                .addGap(106, 106, 106))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(30, 30, 30)
+                        .addGap(46, 46, 46)
                         .addComponent(jButton1))
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(14, 14, 14)
+                        .addGap(23, 23, 23)
                         .addComponent(lbl_usuario, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(48, 48, 48)
+                .addGap(39, 39, 39)
                 .addComponent(jLayeredPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
@@ -315,19 +308,10 @@ private BD bd = new BD();  // Crear una única instancia de BD
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(220, 220, 220)
                         .addComponent(jCalendar1, javax.swing.GroupLayout.PREFERRED_SIZE, 315, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(92, Short.MAX_VALUE))
+                .addContainerGap(46, Short.MAX_VALUE))
         );
 
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
-        getContentPane().setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-        );
+        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents

@@ -24,8 +24,7 @@ public class Registro extends javax.swing.JFrame {
         initComponents();
         this.setResizable(false);
         setLocationRelativeTo(null);
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        setVisible(true);
+
     }
 
     /**
@@ -64,11 +63,18 @@ public class Registro extends javax.swing.JFrame {
         btn_limpiar = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setMaximumSize(new java.awt.Dimension(1366, 768));
+        setPreferredSize(new java.awt.Dimension(1366, 768));
+        getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jPanel1.setBackground(new java.awt.Color(102, 255, 255));
+        jPanel1.setMaximumSize(new java.awt.Dimension(1366, 768));
+        jPanel1.setMinimumSize(new java.awt.Dimension(1024, 768));
+        jPanel1.setPreferredSize(new java.awt.Dimension(1366, 768));
+        jPanel1.setRequestFocusEnabled(false);
+        jPanel1.setVerifyInputWhenFocusTarget(false);
 
         jLabel1.setBackground(new java.awt.Color(0, 0, 0));
-        jLabel1.setForeground(new java.awt.Color(0, 0, 0));
         jLabel1.setText("Rut");
 
         txt_rut.addActionListener(new java.awt.event.ActionListener() {
@@ -77,7 +83,6 @@ public class Registro extends javax.swing.JFrame {
             }
         });
 
-        jLabel2.setForeground(new java.awt.Color(0, 0, 0));
         jLabel2.setText("Contraseña");
 
         txt_pass.addActionListener(new java.awt.event.ActionListener() {
@@ -86,7 +91,6 @@ public class Registro extends javax.swing.JFrame {
             }
         });
 
-        cbox_showpass.setForeground(new java.awt.Color(0, 0, 0));
         cbox_showpass.setText("Mostrar Contraseña");
         cbox_showpass.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -94,8 +98,6 @@ public class Registro extends javax.swing.JFrame {
             }
         });
 
-        btn_is.setBackground(new java.awt.Color(255, 255, 255));
-        btn_is.setForeground(new java.awt.Color(0, 0, 0));
         btn_is.setText("Iniciar Sesion");
         btn_is.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -104,56 +106,35 @@ public class Registro extends javax.swing.JFrame {
         });
 
         logo.setFont(new java.awt.Font("Segoe UI", 1, 36)); // NOI18N
-        logo.setForeground(new java.awt.Color(0, 0, 0));
         logo.setText("Centro Médico Galenos");
 
         banner.setBackground(new java.awt.Color(0, 153, 255));
         banner.setOpaque(true);
 
-        jLabel_name.setForeground(new java.awt.Color(0, 0, 0));
         jLabel_name.setText("Nombre:");
 
-        jLabel_lname.setForeground(new java.awt.Color(0, 0, 0));
         jLabel_lname.setText("Apellido:");
 
-        jLabel_rutt.setForeground(new java.awt.Color(0, 0, 0));
         jLabel_rutt.setText("Rut:");
 
-        jLabel_adress.setForeground(new java.awt.Color(0, 0, 0));
         jLabel_adress.setText("Dirección:");
 
-        jLabel_fono.setForeground(new java.awt.Color(0, 0, 0));
         jLabel_fono.setText("Telefono:");
 
-        jLabel_correo.setForeground(new java.awt.Color(0, 0, 0));
         jLabel_correo.setText("Correo");
 
-        txt_name.setBackground(new java.awt.Color(255, 255, 255));
         txt_name.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txt_nameActionPerformed(evt);
             }
         });
 
-        txt_lname.setBackground(new java.awt.Color(255, 255, 255));
-
-        txt_rutt.setBackground(new java.awt.Color(255, 255, 255));
-
-        txt_adress.setBackground(new java.awt.Color(255, 255, 255));
-
-        txt_fono.setBackground(new java.awt.Color(255, 255, 255));
-
-        txt_correo.setBackground(new java.awt.Color(255, 255, 255));
-
         registro.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
-        registro.setForeground(new java.awt.Color(0, 0, 0));
         registro.setText("Registro De Usuario");
         registro.setVerticalAlignment(javax.swing.SwingConstants.TOP);
-        registro.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Segoe UI", 0, 12), new java.awt.Color(0, 0, 0))); // NOI18N
+        registro.setBorder(javax.swing.BorderFactory.createTitledBorder(""));
         registro.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
 
-        btn_registro.setBackground(new java.awt.Color(255, 255, 255));
-        btn_registro.setForeground(new java.awt.Color(0, 0, 0));
         btn_registro.setText("Registrar");
         btn_registro.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -161,8 +142,6 @@ public class Registro extends javax.swing.JFrame {
             }
         });
 
-        btn_atras.setBackground(new java.awt.Color(255, 255, 255));
-        btn_atras.setForeground(new java.awt.Color(0, 0, 0));
         btn_atras.setText("Atras");
         btn_atras.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -170,8 +149,6 @@ public class Registro extends javax.swing.JFrame {
             }
         });
 
-        btn_limpiar.setBackground(new java.awt.Color(255, 255, 255));
-        btn_limpiar.setForeground(new java.awt.Color(0, 0, 0));
         btn_limpiar.setText("Limpiar");
         btn_limpiar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -186,7 +163,7 @@ public class Registro extends javax.swing.JFrame {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                 .addGap(90, 90, 90)
                 .addComponent(logo, javax.swing.GroupLayout.PREFERRED_SIZE, 407, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 226, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 120, Short.MAX_VALUE)
                 .addComponent(jLabel1)
                 .addGap(18, 18, 18)
                 .addComponent(txt_rut, javax.swing.GroupLayout.PREFERRED_SIZE, 148, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -198,7 +175,7 @@ public class Registro extends javax.swing.JFrame {
                 .addComponent(cbox_showpass)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(btn_is)
-                .addGap(24, 24, 24))
+                .addGap(59, 59, 59))
             .addComponent(banner, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -252,19 +229,23 @@ public class Registro extends javax.swing.JFrame {
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(27, 27, 27)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(txt_rut, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txt_pass, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(btn_is)
-                        .addComponent(cbox_showpass))
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(3, 3, 3)
+                        .addGap(30, 30, 30)
+                        .addComponent(logo, javax.swing.GroupLayout.PREFERRED_SIZE, 82, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(45, 45, 45)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel1)
-                            .addComponent(jLabel2)
-                            .addComponent(logo, javax.swing.GroupLayout.PREFERRED_SIZE, 82, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                            .addComponent(txt_rut, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(txt_pass, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                .addComponent(btn_is)
+                                .addComponent(cbox_showpass))
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addGap(3, 3, 3)
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel1)
+                                    .addComponent(jLabel2))))))
                 .addGap(38, 38, 38)
                 .addComponent(banner, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
@@ -311,21 +292,10 @@ public class Registro extends javax.swing.JFrame {
                     .addComponent(btn_atras)
                     .addComponent(btn_registro)
                     .addComponent(btn_limpiar))
-                .addContainerGap(167, Short.MAX_VALUE))
+                .addContainerGap(148, Short.MAX_VALUE))
         );
 
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
-        getContentPane().setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, Short.MAX_VALUE))
-        );
+        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
